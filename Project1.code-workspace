@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "Trip-records",
+			"path": "../GitClones/Trip-records/Trip-records"
+		}
+	],
+	"settings": {}
+}
