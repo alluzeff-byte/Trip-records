@@ -1,0 +1,11 @@
+﻿name,latitude,longitude,dates,attenders,picture
+London,51.5074,-0.1278,01/06/2023;05/06/2023,Alice Smith;Bob Jones;Carol White,london1.jpg;london2.jpg
+Edinburgh,55.9533,-3.1883,12/08/2022;16/08/2022,David Brown;Eva Green,edinburgh.jpg
+Manchester,53.4808,-2.2426,03/11/2023;04/11/2023,Frank Hall;Grace Lee;Henry King;Isabel May,manchester1.jpg;manchester2.jpg;manchester3.jpg
+Birmingham,52.4862,-1.8904,14/05/2021;16/05/2021,James North;Karen East,birmingham.jpg
+Cardiff,51.4816,-3.1791,22/09/2022;25/09/2022,Laura West;Mike South,cardiff1.jpg;cardiff2.jpg
+Belfast,54.5973,-5.9301,07/07/2023;09/07/2023,Nina Patel;Owen Clark,belfast.jpg
+Glasgow,55.8642,-4.2518,18/03/2021;21/03/2021,Paul Adams;Quinn Baker,glasgow1.jpg;glasgow2.jpg
+Liverpool,53.4084,-2.9916,29/10/2022;30/10/2022,Rachel Cox;Sam Davis;Tara Evans,liverpool.jpg
+Bristol,51.4545,-2.5879,11/04/2023;13/04/2023,Uma Foster;Victor Gray,bristol1.jpg;bristol2.jpg
+Leeds,53.8008,-1.5491,06/06/2022;07/06/2022,Wendy Harris;Xavier Irwin,leeds.jpg
