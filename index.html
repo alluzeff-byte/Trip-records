@@ -341,12 +341,13 @@ const folderImageCache = new Map();
 async function fetchFolderImages(folders) {
     const urls = [];
     for (const folder of folders) {
-        const key = folder.trim().toLowerCase();
-        if (!key) continue;
+        const name = folder.trim();
+        if (!name) continue;
+        const key = name.toLowerCase(); // cache key only — API call uses original casing
 
         if (!folderImageCache.has(key)) {
             try {
-                const res = await fetch(GITHUB_API_IMAGES + encodeURIComponent(key));
+                const res = await fetch(GITHUB_API_IMAGES + encodeURIComponent(name));
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const files = await res.json();
                 const imgUrls = files
