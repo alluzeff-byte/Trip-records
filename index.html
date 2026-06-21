@@ -347,20 +347,31 @@ async function fetchFolderImages(folders) {
 
         if (!folderImageCache.has(key)) {
             try {
-                const res = await fetch(GITHUB_API_IMAGES + encodeURIComponent(name));
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const files = await res.json();
-                const imgUrls = files
-                    .filter(f => f.type === 'file' && /\.(jpe?g|png|gif|webp|avif)$/i.test(f.name))
-                    .sort((a, b) => a.name.localeCompare(b.name))
-                    .map(f => f.download_url);
-                folderImageCache.set(key, imgUrls);
-            } catch {
-                folderImageCache.set(key, []);
+                const apiUrl = GITHUB_API_IMAGES + encodeURIComponent(name);
+                console.log('[images] fetching', apiUrl);
+                const res = await fetch(apiUrl);
+                if (!res.ok) {
+                    const body = await res.text();
+                    console.error('[images] API error', res.status, body);
+                    folderImageCache.set(key, { error: `GitHub API returned ${res.status}: ${JSON.parse(body).message || body}` });
+                } else {
+                    const files = await res.json();
+                    console.log('[images] folder contents:', files.map(f => f.name));
+                    const imgUrls = files
+                        .filter(f => f.type === 'file' && /\.(jpe?g|png|gif|webp|avif)$/i.test(f.name))
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                        .map(f => f.download_url);
+                    folderImageCache.set(key, imgUrls);
+                }
+            } catch (err) {
+                console.error('[images] fetch failed:', err);
+                folderImageCache.set(key, { error: err.message });
             }
         }
 
-        urls.push(...folderImageCache.get(key));
+        const cached = folderImageCache.get(key);
+        if (Array.isArray(cached)) urls.push(...cached);
+        // else: error object — silently skip (error shown in gallery)
     }
     return urls;
 }
@@ -517,9 +528,16 @@ async function openModal(name, dates, sites, attenders, folders) {
     galleryPics = pics;
     if (pics.length === 0) {
         galleryLoading.style.display = 'none';
-        galleryError.textContent = folders.length
-            ? `No images found in folder "${folders.join(', ')}".`
-            : 'No image folder specified.';
+        // Check if any folder returned an API error
+        const errs = folders
+            .map(f => folderImageCache.get(f.trim().toLowerCase()))
+            .filter(v => v && !Array.isArray(v))
+            .map(v => v.error);
+        galleryError.textContent = errs.length
+            ? errs[0]
+            : folders.length
+                ? `No images found in folder "${folders.join(', ')}". Check the browser console (F12) for details.`
+                : 'No image folder specified.';
         galleryError.style.display = 'block';
     } else {
         showImage(0);
