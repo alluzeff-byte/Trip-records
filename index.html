@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trip Records</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Toolbar ─────────────────────────────────────────────────────── */
+        #toolbar {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            padding: 0 20px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+            border-bottom: 1px solid #2d2d4a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+        }
+
+        #toolbar h1 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+            margin-right: 4px;
+        }
+
+        .tb-btn {
+            background: #2d2d4a;
+            color: #ccc;
+            border: 1px solid #3d3d5e;
+            padding: 6px 13px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12.5px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: background 0.15s, color 0.15s;
+        }
+        .tb-btn:hover { background: #3d3d5e; color: #fff; }
+        .tb-btn.primary { background: #4361ee; border-color: #4361ee; color: #fff; }
+        .tb-btn.primary:hover { background: #3451d1; }
+
+        #file-input { display: none; }
+
+        #status {
+            font-size: 12px;
+            color: #777;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+        }
+        #status.error { color: #e57373; }
+        #status.ok    { color: #81c784; }
+
+        /* ── Map ─────────────────────────────────────────────────────────── */
+        #map { flex: 1; }
+
+        /* ── Marker labels ───────────────────────────────────────────────── */
+        .marker-label {
+            background: rgba(255,255,255,0.93) !important;
+            border: none !important;
+            border-radius: 4px !important;
+            padding: 2px 7px !important;
+            font-size: 11.5px !important;
+            font-weight: 600 !important;
+            color: #1a1a2e !important;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.22) !important;
+            white-space: nowrap !important;
+            pointer-events: none !important;
+        }
+        .marker-label::before { display: none !important; }
+
+        /* ── Modal overlay ───────────────────────────────────────────────── */
+        #modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #modal.active { display: flex; }
+
+        #modal-box {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 660px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.55);
+            animation: pop-in 0.17s ease;
+        }
+        @keyframes pop-in {
+            from { transform: scale(0.91); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+
+        /* header */
+        #modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            flex-shrink: 0;
+        }
+        #modal-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+        #modal-close {
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            flex-shrink: 0;
+            transition: background 0.15s;
+        }
+        #modal-close:hover { background: #ddd; color: #111; }
+
+        /* scrollable body */
+        #modal-body {
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* gallery */
+        #gallery-wrap {
+            background: #111;
+            display: flex;
+            flex-direction: column;
+        }
+        #gallery-stage {
+            display: flex;
+            align-items: center;
+            min-height: 260px;
+        }
+        .gallery-nav {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            font-size: 30px;
+            width: 44px;
+            flex-shrink: 0;
+            align-self: stretch;
+            cursor: pointer;
+            transition: background 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-nav:hover:not(:disabled) { background: rgba(255,255,255,0.25); }
+        .gallery-nav:disabled { opacity: 0.15; cursor: default; }
+        .gallery-nav.hidden { visibility: hidden; }
+
+        #gallery-view {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 260px;
+            padding: 12px 0;
+        }
+        #gallery-img {
+            display: none;
+            max-width: 100%;
+            max-height: 52vh;
+            object-fit: contain;
+            border-radius: 2px;
+        }
+        #gallery-loading {
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+        }
+        #gallery-error {
+            display: none;
+            color: #ff8080;
+            font-size: 13px;
+            text-align: center;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+        #gallery-counter {
+            text-align: center;
+            color: rgba(255,255,255,0.45);
+            font-size: 11.5px;
+            padding: 6px 0 10px;
+            letter-spacing: 0.5px;
+        }
+        #gallery-counter:empty { padding: 0; }
+
+        /* info section */
+        #modal-info {
+            padding: 18px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .info-block {}
+        .info-label {
+            display: block;
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.9px;
+            color: #aaa;
+            margin-bottom: 6px;
+        }
+        #modal-dates-val {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+        #modal-dates-val.empty { color: #ccc; font-size: 15px; font-weight: 400; }
+
+        #modal-attenders-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+        }
+        #modal-attenders-list li {
+            padding: 7px 0;
+            font-size: 13.5px;
+            color: #333;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        #modal-attenders-list li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4361ee;
+            flex-shrink: 0;
+        }
+        #modal-attenders-list li:last-child { border-bottom: none; }
+        #modal-attenders-list li.empty { color: #bbb; font-style: italic; }
+        #modal-attenders-list li.empty::before { background: #ddd; }
+    </style>
+</head>
+<body>
+
+<div id="toolbar">
+    <h1>Trip Records</h1>
+    <button class="tb-btn primary" id="reload-btn">&#8635; Reload CSV</button>
+    <label class="tb-btn" for="file-input">Load file…</label>
+    <input type="file" id="file-input" accept=".xlsx,.xls,.csv" />
+    <span id="status">Loading locations.csv…</span>
+</div>
+
+<div id="map"></div>
+
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+    <div id="modal-box">
+
+        <div id="modal-header">
+            <span id="modal-name"></span>
+            <button id="modal-close" aria-label="Close">&#x2715;</button>
+        </div>
+
+        <div id="modal-body">
+
+            <div id="gallery-wrap">
+                <div id="gallery-stage">
+                    <button class="gallery-nav" id="gallery-prev" aria-label="Previous image">&#8249;</button>
+                    <div id="gallery-view">
+                        <div id="gallery-loading">Loading image…</div>
+                        <img id="gallery-img" alt="" />
+                        <div id="gallery-error"></div>
+                    </div>
+                    <button class="gallery-nav" id="gallery-next" aria-label="Next image">&#8250;</button>
+                </div>
+                <div id="gallery-counter"></div>
+            </div>
+
+            <div id="modal-info">
+                <div class="info-block">
+                    <span class="info-label">Dates</span>
+                    <span id="modal-dates-val"></span>
+                </div>
+                <div class="info-block">
+                    <span class="info-label">Attenders</span>
+                    <ul id="modal-attenders-list"></ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+// Base URL for images stored in the GitHub repository
+const GITHUB_IMAGES = 'https://raw.githubusercontent.com/alluzeff/Trip-records/main/images/';
+
+// ── Map ─────────────────────────────────────────────────────────────────────
+const map = L.map('map', { preferCanvas: true }).setView([54.5, -3.5], 6);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19
+}).addTo(map);
+
+// ── State ────────────────────────────────────────────────────────────────────
+let activeMarkers = [];
+
+const BASE_STYLE = {
+    radius: 9,
+    fillColor: '#4361ee',
+    color: '#ffffff',
+    weight: 2.5,
+    opacity: 1,
+    fillOpacity: 0.88
+};
+
+// ── Date helpers ─────────────────────────────────────────────────────────────
+// Parses dd/mm/yyyy and returns a formatted string like "5 Jun 2023"
+function parseDate(str) {
+    const parts = String(str).trim().split('/');
+    if (parts.length !== 3) return str;
+    const [d, m, y] = parts.map(Number);
+    if (!d || !m || !y) return str;
+    return new Date(y, m - 1, d).toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric'
+    });
+}
+
+// Converts "dd/mm/yyyy;dd/mm/yyyy" into "5 Jun 2023 – 20 Jun 2023"
+function formatDateRange(raw) {
+    const parts = String(raw || '').split(';').map(s => s.trim()).filter(Boolean);
+    if (parts.length === 0) return '';
+    if (parts.length === 1) return parseDate(parts[0]);
+    return `${parseDate(parts[0])} – ${parseDate(parts[1])}`;
+}
+
+// ── CSV helpers ──────────────────────────────────────────────────────────────
+function splitSemi(value) {
+    return String(value || '').split(';').map(s => s.trim()).filter(Boolean);
+}
+
+function col(row, key) {
+    const lk = key.toLowerCase();
+    for (const k of Object.keys(row)) {
+        if (k.trim().toLowerCase() === lk) return row[k];
+    }
+    return '';
+}
+
+// ── Gallery state ────────────────────────────────────────────────────────────
+let galleryPics  = [];
+let galleryIdx   = 0;
+let galleryGenId = 0;
+
+const galleryImg     = document.getElementById('gallery-img');
+const galleryView    = document.getElementById('gallery-view');
+const galleryLoading = document.getElementById('gallery-loading');
+const galleryError   = document.getElementById('gallery-error');
+const galleryCounter = document.getElementById('gallery-counter');
+const galleryPrev    = document.getElementById('gallery-prev');
+const galleryNext    = document.getElementById('gallery-next');
+
+function resetGallery() {
+    galleryImg.style.display     = 'none';
+    galleryImg.src               = '';
+    galleryError.style.display   = 'none';
+    galleryLoading.style.display = 'none';
+    galleryView.style.display    = 'flex';
+}
+
+// Resolves a picture column value to a full URL.
+// If the value already starts with http it is used as-is; otherwise it is
+// treated as a filename and prefixed with the GitHub images base URL.
+function resolveImageUrl(value) {
+    if (/^https?:\/\//i.test(value)) return value;
+    return GITHUB_IMAGES + value;
+}
+
+async function showImage(index) {
+    const myId = ++galleryGenId;
+    const raw  = galleryPics[index];
+    galleryIdx = index;
+
+    resetGallery();
+    galleryLoading.style.display = 'block';
+
+    const multi = galleryPics.length > 1;
+    galleryCounter.textContent = multi ? `${index + 1} / ${galleryPics.length}` : '';
+    galleryPrev.classList.toggle('hidden', !multi);
+    galleryNext.classList.toggle('hidden', !multi);
+    galleryPrev.disabled = index === 0;
+    galleryNext.disabled = index === galleryPics.length - 1;
+
+    if (!raw) {
+        galleryLoading.style.display = 'none';
+        galleryError.textContent = 'No image specified for this entry.';
+        galleryError.style.display = 'block';
+        return;
+    }
+
+    const src = resolveImageUrl(raw);
+
+    const img = new Image();
+    img.onload = () => {
+        if (myId !== galleryGenId) return;
+        galleryLoading.style.display = 'none';
+        galleryImg.src = src;
+        galleryImg.style.display = 'block';
+    };
+    img.onerror = () => {
+        if (myId !== galleryGenId) return;
+        galleryLoading.style.display = 'none';
+        galleryError.innerHTML =
+            'Could not load image.<br><small style="opacity:.6;word-break:break-all">' +
+            src + '</small>';
+        galleryError.style.display = 'block';
+    };
+    img.src = src;
+}
+
+galleryPrev.addEventListener('click', () => { if (galleryIdx > 0) showImage(galleryIdx - 1); });
+galleryNext.addEventListener('click', () => { if (galleryIdx < galleryPics.length - 1) showImage(galleryIdx + 1); });
+
+document.addEventListener('keydown', e => {
+    if (!modal.classList.contains('active')) return;
+    if (e.key === 'ArrowLeft')  galleryPrev.click();
+    if (e.key === 'ArrowRight') galleryNext.click();
+    if (e.key === 'Escape')     closeModal();
+});
+
+// ── Modal ────────────────────────────────────────────────────────────────────
+const modal          = document.getElementById('modal');
+const modalName      = document.getElementById('modal-name');
+const modalDatesVal  = document.getElementById('modal-dates-val');
+const modalAttenders = document.getElementById('modal-attenders-list');
+
+function openModal(name, dates, attenders, pictures) {
+    modalName.textContent = name;
+
+    const datesStr = formatDateRange(dates);
+    if (datesStr) {
+        modalDatesVal.textContent = datesStr;
+        modalDatesVal.className = '';
+    } else {
+        modalDatesVal.textContent = 'Not specified';
+        modalDatesVal.className = 'empty';
+    }
+
+    modalAttenders.innerHTML = '';
+    if (attenders.length === 0) {
+        const li = document.createElement('li');
+        li.textContent = 'None listed';
+        li.className = 'empty';
+        modalAttenders.appendChild(li);
+    } else {
+        attenders.forEach(a => {
+            const li = document.createElement('li');
+            li.textContent = a;
+            modalAttenders.appendChild(li);
+        });
+    }
+
+    galleryPics = pictures;
+    showImage(0);
+
+    modal.classList.add('active');
+    document.getElementById('modal-body').scrollTop = 0;
+}
+
+function closeModal() { modal.classList.remove('active'); }
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+// ── Marker rendering ─────────────────────────────────────────────────────────
+function loadLocations(rows, filename) {
+    activeMarkers.forEach(m => m.remove());
+    activeMarkers = [];
+
+    let skipped = 0;
+    const bounds = [];
+
+    rows.forEach(row => {
+        const name      = String(col(row, 'name')      || '').trim() || '(unnamed)';
+        const lat       = parseFloat(col(row, 'latitude'));
+        const lng       = parseFloat(col(row, 'longitude'));
+        const dates     = String(col(row, 'dates')     || '').trim();
+        const attenders = splitSemi(col(row, 'attenders'));
+        const pictures  = splitSemi(col(row, 'picture'));
+
+        if (isNaN(lat) || isNaN(lng)) { skipped++; return; }
+
+        const marker = L.circleMarker([lat, lng], { ...BASE_STYLE })
+            .bindTooltip(name, {
+                permanent: true,
+                direction: 'right',
+                offset:    [10, 0],
+                className: 'marker-label'
+            })
+            .addTo(map);
+
+        marker.on('mouseover', function () {
+            this.setStyle({ fillColor: '#e63946', radius: 11 });
+            this.bringToFront();
+        });
+        marker.on('mouseout', function () {
+            this.setStyle({ fillColor: BASE_STYLE.fillColor, radius: BASE_STYLE.radius });
+        });
+        marker.on('click', () => openModal(name, dates, attenders, pictures));
+
+        activeMarkers.push(marker);
+        bounds.push([lat, lng]);
+    });
+
+    const n = activeMarkers.length;
+    if (n === 0) {
+        setStatus(`No valid rows in "${filename}". Expected columns: name, latitude, longitude, dates, attenders, picture.`, 'error');
+        return;
+    }
+
+    const skipNote = skipped ? `  (${skipped} row${skipped > 1 ? 's' : ''} skipped — missing coordinates)` : '';
+    setStatus(`${n} location${n !== 1 ? 's' : ''} loaded from "${filename}"${skipNote}`, 'ok');
+
+    if (bounds.length > 1)        map.fitBounds(bounds, { padding: [60, 60], maxZoom: 13 });
+    else if (bounds.length === 1) map.setView(bounds[0], 11);
+}
+
+// ── Data fetching ─────────────────────────────────────────────────────────────
+async function fetchCSV(path) {
+    setStatus(`Loading ${path}…`);
+    try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error(`HTTP ${res.status} — ${res.statusText}`);
+        const text = await res.text();
+        const wb   = XLSX.read(text, { type: 'string' });
+        const ws   = wb.Sheets[wb.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
+        loadLocations(rows, path);
+    } catch (err) {
+        const hint = location.protocol === 'file:'
+            ? ' (Tip: serve via a local web server — file:// blocks fetch)'
+            : '';
+        setStatus(`Could not load ${path}: ${err.message}${hint}`, 'error');
+    }
+}
+
+document.getElementById('file-input').addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    this.value = '';
+    const reader = new FileReader();
+    reader.onload = evt => {
+        try {
+            const data = new Uint8Array(evt.target.result);
+            const wb   = XLSX.read(data, { type: 'array' });
+            const ws   = wb.Sheets[wb.SheetNames[0]];
+            const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
+            loadLocations(rows, file.name);
+        } catch (err) {
+            setStatus('Error reading file: ' + err.message, 'error');
+        }
+    };
+    reader.readAsArrayBuffer(file);
+});
+
+document.getElementById('reload-btn').addEventListener('click', () => fetchCSV('locations.csv'));
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function setStatus(msg, type = '') {
+    const el = document.getElementById('status');
+    el.textContent = msg;
+    el.className = type;
+}
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => fetchCSV('locations.csv'));
+</script>
+</body>
+</html>
