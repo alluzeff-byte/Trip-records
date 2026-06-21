@@ -30,7 +30,6 @@
             border-bottom: 1px solid #2d2d4a;
             box-shadow: 0 2px 8px rgba(0,0,0,0.35);
         }
-
         #toolbar h1 {
             font-size: 15px;
             font-weight: 700;
@@ -39,7 +38,6 @@
             letter-spacing: 0.3px;
             margin-right: 4px;
         }
-
         .tb-btn {
             background: #2d2d4a;
             color: #ccc;
@@ -55,9 +53,7 @@
         .tb-btn:hover { background: #3d3d5e; color: #fff; }
         .tb-btn.primary { background: #4361ee; border-color: #4361ee; color: #fff; }
         .tb-btn.primary:hover { background: #3451d1; }
-
         #file-input { display: none; }
-
         #status {
             font-size: 12px;
             color: #777;
@@ -96,7 +92,7 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 16px;
         }
         #modal.active { display: flex; }
 
@@ -105,8 +101,8 @@
             border-radius: 12px;
             overflow: hidden;
             width: 100%;
-            max-width: 660px;
-            max-height: 90vh;
+            max-width: min(96vw, 960px);
+            max-height: 96vh;
             display: flex;
             flex-direction: column;
             box-shadow: 0 24px 64px rgba(0,0,0,0.55);
@@ -122,12 +118,12 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 20px;
+            padding: 15px 22px;
             border-bottom: 1px solid #eee;
             flex-shrink: 0;
         }
         #modal-name {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: #1a1a2e;
         }
@@ -135,8 +131,8 @@
             background: #f0f0f0;
             border: none;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             font-size: 16px;
             cursor: pointer;
             display: flex;
@@ -149,28 +145,18 @@
         #modal-close:hover { background: #ddd; color: #111; }
 
         /* scrollable body */
-        #modal-body {
-            overflow-y: auto;
-            flex: 1;
-        }
+        #modal-body { overflow-y: auto; flex: 1; }
 
         /* gallery */
-        #gallery-wrap {
-            background: #111;
-            display: flex;
-            flex-direction: column;
-        }
-        #gallery-stage {
-            display: flex;
-            align-items: center;
-            min-height: 260px;
-        }
+        #gallery-wrap { background: #111; display: flex; flex-direction: column; }
+        #gallery-stage { display: flex; align-items: center; min-height: 320px; }
+
         .gallery-nav {
             background: rgba(255,255,255,0.1);
             border: none;
             color: #fff;
-            font-size: 30px;
-            width: 44px;
+            font-size: 32px;
+            width: 48px;
             flex-shrink: 0;
             align-self: stretch;
             cursor: pointer;
@@ -188,20 +174,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 260px;
-            padding: 12px 0;
+            min-height: 320px;
+            padding: 14px 0;
         }
         #gallery-img {
             display: none;
             max-width: 100%;
-            max-height: 52vh;
+            max-height: 68vh;
             object-fit: contain;
             border-radius: 2px;
         }
-        #gallery-loading {
-            color: rgba(255,255,255,0.5);
-            font-size: 13px;
-        }
+        #gallery-loading { color: rgba(255,255,255,0.5); font-size: 13px; }
         #gallery-error {
             display: none;
             color: #ff8080;
@@ -221,12 +204,11 @@
 
         /* info section */
         #modal-info {
-            padding: 18px 20px 20px;
+            padding: 18px 22px 22px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
         }
-        .info-block {}
         .info-label {
             display: block;
             font-size: 10.5px;
@@ -243,12 +225,12 @@
         }
         #modal-dates-val.empty { color: #ccc; font-size: 15px; font-weight: 400; }
 
-        #modal-attenders-list {
+        .info-list {
             list-style: none;
             display: flex;
             flex-direction: column;
         }
-        #modal-attenders-list li {
+        .info-list li {
             padding: 7px 0;
             font-size: 13.5px;
             color: #333;
@@ -257,16 +239,25 @@
             align-items: center;
             gap: 8px;
         }
+        .info-list li:last-child { border-bottom: none; }
+        .info-list li.empty { color: #bbb; font-style: italic; }
+
+        #modal-sites-list li::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #2a9d8f;
+            flex-shrink: 0;
+        }
+        #modal-sites-list li.empty::before { background: #ddd; }
+
         #modal-attenders-list li::before {
             content: '';
-            width: 6px;
-            height: 6px;
+            width: 6px; height: 6px;
             border-radius: 50%;
             background: #4361ee;
             flex-shrink: 0;
         }
-        #modal-attenders-list li:last-child { border-bottom: none; }
-        #modal-attenders-list li.empty { color: #bbb; font-style: italic; }
         #modal-attenders-list li.empty::before { background: #ddd; }
     </style>
 </head>
@@ -296,7 +287,7 @@
                 <div id="gallery-stage">
                     <button class="gallery-nav" id="gallery-prev" aria-label="Previous image">&#8249;</button>
                     <div id="gallery-view">
-                        <div id="gallery-loading">Loading image…</div>
+                        <div id="gallery-loading">Loading images…</div>
                         <img id="gallery-img" alt="" />
                         <div id="gallery-error"></div>
                     </div>
@@ -311,8 +302,12 @@
                     <span id="modal-dates-val"></span>
                 </div>
                 <div class="info-block">
+                    <span class="info-label">Sites</span>
+                    <ul id="modal-sites-list" class="info-list"></ul>
+                </div>
+                <div class="info-block">
                     <span class="info-label">Attenders</span>
-                    <ul id="modal-attenders-list"></ul>
+                    <ul id="modal-attenders-list" class="info-list"></ul>
                 </div>
             </div>
 
@@ -321,12 +316,11 @@
 </div>
 
 <script>
-// Base URL for images stored in the GitHub repository
-const GITHUB_IMAGES = 'https://raw.githubusercontent.com/alluzeff-byte/Trip-records/main/images/';
+// GitHub repo details — update these if the repo is renamed or moved
+const GITHUB_API_IMAGES = 'https://api.github.com/repos/alluzeff-byte/Trip-records/contents/images/';
 
-// ── Map ─────────────────────────────────────────────────────────────────────
+// ── Map ──────────────────────────────────────────────────────────────────────
 const map = L.map('map', { preferCanvas: true }).setView([54.5, -3.5], 6);
-
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     maxZoom: 19
@@ -334,18 +328,43 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // ── State ────────────────────────────────────────────────────────────────────
 let activeMarkers = [];
-
 const BASE_STYLE = {
-    radius: 9,
-    fillColor: '#4361ee',
-    color: '#ffffff',
-    weight: 2.5,
-    opacity: 1,
-    fillOpacity: 0.88
+    radius: 9, fillColor: '#4361ee', color: '#ffffff',
+    weight: 2.5, opacity: 1, fillOpacity: 0.88
 };
 
+// ── Folder image cache ───────────────────────────────────────────────────────
+// Uses GitHub Contents API to list image files in images/{folder}/.
+// Results are cached per session so repeated opens are instant.
+const folderImageCache = new Map();
+
+async function fetchFolderImages(folders) {
+    const urls = [];
+    for (const folder of folders) {
+        const key = folder.trim().toLowerCase();
+        if (!key) continue;
+
+        if (!folderImageCache.has(key)) {
+            try {
+                const res = await fetch(GITHUB_API_IMAGES + encodeURIComponent(key));
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const files = await res.json();
+                const imgUrls = files
+                    .filter(f => f.type === 'file' && /\.(jpe?g|png|gif|webp|avif)$/i.test(f.name))
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map(f => f.download_url);
+                folderImageCache.set(key, imgUrls);
+            } catch {
+                folderImageCache.set(key, []);
+            }
+        }
+
+        urls.push(...folderImageCache.get(key));
+    }
+    return urls;
+}
+
 // ── Date helpers ─────────────────────────────────────────────────────────────
-// Parses dd/mm/yyyy and returns a formatted string like "5 Jun 2023"
 function parseDate(str) {
     const parts = String(str).trim().split('/');
     if (parts.length !== 3) return str;
@@ -356,7 +375,6 @@ function parseDate(str) {
     });
 }
 
-// Converts "dd/mm/yyyy;dd/mm/yyyy" into "5 Jun 2023 – 20 Jun 2023"
 function formatDateRange(raw) {
     const parts = String(raw || '').split(';').map(s => s.trim()).filter(Boolean);
     if (parts.length === 0) return '';
@@ -369,10 +387,15 @@ function splitSemi(value) {
     return String(value || '').split(';').map(s => s.trim()).filter(Boolean);
 }
 
-function col(row, key) {
-    const lk = key.toLowerCase();
-    for (const k of Object.keys(row)) {
-        if (k.trim().toLowerCase() === lk) return row[k];
+function col(row, ...keys) {
+    for (const key of keys) {
+        const lk = key.toLowerCase();
+        for (const k of Object.keys(row)) {
+            if (k.trim().toLowerCase() === lk) {
+                const v = row[k];
+                if (v !== '' && v !== undefined && v !== null) return v;
+            }
+        }
     }
     return '';
 }
@@ -398,17 +421,9 @@ function resetGallery() {
     galleryView.style.display    = 'flex';
 }
 
-// Resolves a picture column value to a full URL.
-// If the value already starts with http it is used as-is; otherwise it is
-// treated as a filename and prefixed with the GitHub images base URL.
-function resolveImageUrl(value) {
-    if (/^https?:\/\//i.test(value)) return value;
-    return GITHUB_IMAGES + value;
-}
-
-async function showImage(index) {
+function showImage(index) {
     const myId = ++galleryGenId;
-    const raw  = galleryPics[index];
+    const src  = galleryPics[index];
     galleryIdx = index;
 
     resetGallery();
@@ -421,15 +436,6 @@ async function showImage(index) {
     galleryPrev.disabled = index === 0;
     galleryNext.disabled = index === galleryPics.length - 1;
 
-    if (!raw) {
-        galleryLoading.style.display = 'none';
-        galleryError.textContent = 'No image specified for this entry.';
-        galleryError.style.display = 'block';
-        return;
-    }
-
-    const src = resolveImageUrl(raw);
-
     const img = new Image();
     img.onload = () => {
         if (myId !== galleryGenId) return;
@@ -441,8 +447,7 @@ async function showImage(index) {
         if (myId !== galleryGenId) return;
         galleryLoading.style.display = 'none';
         galleryError.innerHTML =
-            'Could not load image.<br><small style="opacity:.6;word-break:break-all">' +
-            src + '</small>';
+            'Could not load image.<br><small style="opacity:.6;word-break:break-all">' + src + '</small>';
         galleryError.style.display = 'block';
     };
     img.src = src;
@@ -462,39 +467,62 @@ document.addEventListener('keydown', e => {
 const modal          = document.getElementById('modal');
 const modalName      = document.getElementById('modal-name');
 const modalDatesVal  = document.getElementById('modal-dates-val');
+const modalSites     = document.getElementById('modal-sites-list');
 const modalAttenders = document.getElementById('modal-attenders-list');
 
-function openModal(name, dates, attenders, pictures) {
+function fillList(ul, items, emptyText) {
+    ul.innerHTML = '';
+    if (items.length === 0) {
+        const li = document.createElement('li');
+        li.textContent = emptyText;
+        li.className = 'empty';
+        ul.appendChild(li);
+    } else {
+        items.forEach(text => {
+            const li = document.createElement('li');
+            li.textContent = text;
+            ul.appendChild(li);
+        });
+    }
+}
+
+async function openModal(name, dates, sites, attenders, folders) {
+    // Increment generation id — invalidates any in-progress image loads
+    const myGenId = ++galleryGenId;
+
     modalName.textContent = name;
 
     const datesStr = formatDateRange(dates);
-    if (datesStr) {
-        modalDatesVal.textContent = datesStr;
-        modalDatesVal.className = '';
-    } else {
-        modalDatesVal.textContent = 'Not specified';
-        modalDatesVal.className = 'empty';
-    }
+    modalDatesVal.textContent = datesStr || 'Not specified';
+    modalDatesVal.className   = datesStr ? '' : 'empty';
 
-    modalAttenders.innerHTML = '';
-    if (attenders.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = 'None listed';
-        li.className = 'empty';
-        modalAttenders.appendChild(li);
-    } else {
-        attenders.forEach(a => {
-            const li = document.createElement('li');
-            li.textContent = a;
-            modalAttenders.appendChild(li);
-        });
-    }
+    fillList(modalSites,     sites,     'None listed');
+    fillList(modalAttenders, attenders, 'None listed');
 
-    galleryPics = pictures;
-    showImage(0);
+    // Show gallery in loading state while we fetch the folder contents
+    galleryPics = [];
+    resetGallery();
+    galleryLoading.style.display = 'block';
+    galleryPrev.classList.add('hidden');
+    galleryNext.classList.add('hidden');
+    galleryCounter.textContent = '';
 
     modal.classList.add('active');
     document.getElementById('modal-body').scrollTop = 0;
+
+    const pics = await fetchFolderImages(folders);
+    if (myGenId !== galleryGenId) return; // another marker was clicked while fetching
+
+    galleryPics = pics;
+    if (pics.length === 0) {
+        galleryLoading.style.display = 'none';
+        galleryError.textContent = folders.length
+            ? `No images found in folder "${folders.join(', ')}".`
+            : 'No image folder specified.';
+        galleryError.style.display = 'block';
+    } else {
+        showImage(0);
+    }
 }
 
 function closeModal() { modal.classList.remove('active'); }
@@ -511,21 +539,20 @@ function loadLocations(rows, filename) {
     const bounds = [];
 
     rows.forEach(row => {
-        const name      = String(col(row, 'name')      || '').trim() || '(unnamed)';
+        const name      = String(col(row, 'name')                  || '').trim() || '(unnamed)';
         const lat       = parseFloat(col(row, 'latitude'));
         const lng       = parseFloat(col(row, 'longitude'));
-        const dates     = String(col(row, 'dates')     || '').trim();
+        const dates     = String(col(row, 'dates')                 || '').trim();
+        const sites     = splitSemi(col(row, 'sites'));
         const attenders = splitSemi(col(row, 'attenders'));
-        const pictures  = splitSemi(col(row, 'picture'));
+        const folders   = splitSemi(col(row, 'pictures', 'picture'));
 
         if (isNaN(lat) || isNaN(lng)) { skipped++; return; }
 
         const marker = L.circleMarker([lat, lng], { ...BASE_STYLE })
             .bindTooltip(name, {
-                permanent: true,
-                direction: 'right',
-                offset:    [10, 0],
-                className: 'marker-label'
+                permanent: true, direction: 'right',
+                offset: [10, 0], className: 'marker-label'
             })
             .addTo(map);
 
@@ -536,7 +563,7 @@ function loadLocations(rows, filename) {
         marker.on('mouseout', function () {
             this.setStyle({ fillColor: BASE_STYLE.fillColor, radius: BASE_STYLE.radius });
         });
-        marker.on('click', () => openModal(name, dates, attenders, pictures));
+        marker.on('click', () => openModal(name, dates, sites, attenders, folders));
 
         activeMarkers.push(marker);
         bounds.push([lat, lng]);
@@ -544,7 +571,7 @@ function loadLocations(rows, filename) {
 
     const n = activeMarkers.length;
     if (n === 0) {
-        setStatus(`No valid rows in "${filename}". Expected columns: name, latitude, longitude, dates, attenders, picture.`, 'error');
+        setStatus(`No valid rows in "${filename}". Expected columns: name, latitude, longitude, dates, attenders, sites, pictures.`, 'error');
         return;
     }
 
@@ -559,7 +586,8 @@ function loadLocations(rows, filename) {
 async function fetchCSV(path) {
     setStatus(`Loading ${path}…`);
     try {
-        const res = await fetch(path);
+        // no-cache ensures the latest version is always fetched from the server
+        const res = await fetch(path, { cache: 'no-cache' });
         if (!res.ok) throw new Error(`HTTP ${res.status} — ${res.statusText}`);
         const text = await res.text();
         const wb   = XLSX.read(text, { type: 'string' });
@@ -581,8 +609,7 @@ document.getElementById('file-input').addEventListener('change', function (e) {
     const reader = new FileReader();
     reader.onload = evt => {
         try {
-            const data = new Uint8Array(evt.target.result);
-            const wb   = XLSX.read(data, { type: 'array' });
+            const wb   = XLSX.read(new Uint8Array(evt.target.result), { type: 'array' });
             const ws   = wb.Sheets[wb.SheetNames[0]];
             const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
             loadLocations(rows, file.name);
@@ -602,7 +629,7 @@ function setStatus(msg, type = '') {
     el.className = type;
 }
 
-// ── Boot ─────────────────────────────────────────────────────────────────────
+// ── Boot — always fetch fresh CSV on load ─────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => fetchCSV('locations.csv'));
 </script>
 </body>
