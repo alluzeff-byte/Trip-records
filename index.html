@@ -6,7 +6,6 @@
     <title>Trip Records</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -113,7 +112,6 @@
             to   { transform: scale(1);    opacity: 1; }
         }
 
-        /* header */
         #modal-header {
             display: flex;
             align-items: center;
@@ -144,10 +142,9 @@
         }
         #modal-close:hover { background: #ddd; color: #111; }
 
-        /* scrollable body */
         #modal-body { overflow-y: auto; flex: 1; }
 
-        /* gallery */
+        /* ── Gallery ─────────────────────────────────────────────────────── */
         #gallery-wrap { background: #111; display: flex; flex-direction: column; }
         #gallery-stage { display: flex; align-items: center; min-height: 320px; }
 
@@ -202,7 +199,7 @@
         }
         #gallery-counter:empty { padding: 0; }
 
-        /* info section */
+        /* ── Info section ────────────────────────────────────────────────── */
         #modal-info {
             padding: 18px 22px 22px;
             display: flex;
@@ -243,20 +240,14 @@
         .info-list li.empty { color: #bbb; font-style: italic; }
 
         #modal-sites-list li::before {
-            content: '';
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: #2a9d8f;
-            flex-shrink: 0;
+            content: ''; width: 6px; height: 6px;
+            border-radius: 50%; background: #2a9d8f; flex-shrink: 0;
         }
         #modal-sites-list li.empty::before { background: #ddd; }
 
         #modal-attenders-list li::before {
-            content: '';
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: #4361ee;
-            flex-shrink: 0;
+            content: ''; width: 6px; height: 6px;
+            border-radius: 50%; background: #4361ee; flex-shrink: 0;
         }
         #modal-attenders-list li.empty::before { background: #ddd; }
     </style>
@@ -265,10 +256,10 @@
 
 <div id="toolbar">
     <h1>Trip Records</h1>
-    <button class="tb-btn primary" id="reload-btn">&#8635; Reload CSV</button>
+    <button class="tb-btn primary" id="reload-btn">&#8635; Reload</button>
     <label class="tb-btn" for="file-input">Load file…</label>
-    <input type="file" id="file-input" accept=".xlsx,.xls,.csv" />
-    <span id="status">Loading locations.csv…</span>
+    <input type="file" id="file-input" accept=".json" />
+    <span id="status">Loading locations.json…</span>
 </div>
 
 <div id="map"></div>
@@ -316,7 +307,6 @@
 </div>
 
 <script>
-// GitHub repo details — update these if the repo is renamed or moved
 const GITHUB_API_IMAGES = 'https://api.github.com/repos/alluzeff-byte/Trip-records/contents/images/';
 
 // ── Map ──────────────────────────────────────────────────────────────────────
@@ -326,7 +316,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19
 }).addTo(map);
 
-// ── State ────────────────────────────────────────────────────────────────────
 let activeMarkers = [];
 const BASE_STYLE = {
     radius: 9, fillColor: '#4361ee', color: '#ffffff',
@@ -334,8 +323,6 @@ const BASE_STYLE = {
 };
 
 // ── Folder image cache ───────────────────────────────────────────────────────
-// Uses GitHub Contents API to list image files in images/{folder}/.
-// Results are cached per session so repeated opens are instant.
 const folderImageCache = new Map();
 
 async function fetchFolderImages(folders) {
@@ -343,7 +330,7 @@ async function fetchFolderImages(folders) {
     for (const folder of folders) {
         const name = folder.trim();
         if (!name) continue;
-        const key = name.toLowerCase(); // cache key only — API call uses original casing
+        const key = name.toLowerCase();
 
         if (!folderImageCache.has(key)) {
             try {
@@ -352,11 +339,13 @@ async function fetchFolderImages(folders) {
                 const res = await fetch(apiUrl);
                 if (!res.ok) {
                     const body = await res.text();
-                    console.error('[images] API error', res.status, body);
-                    folderImageCache.set(key, { error: `GitHub API returned ${res.status}: ${JSON.parse(body).message || body}` });
+                    let msg;
+                    try { msg = JSON.parse(body).message; } catch { msg = body; }
+                    console.error('[images] API error', res.status, msg);
+                    folderImageCache.set(key, { error: `GitHub API ${res.status}: ${msg}` });
                 } else {
                     const files = await res.json();
-                    console.log('[images] folder contents:', files.map(f => f.name));
+                    console.log('[images] contents:', files.map(f => f.name));
                     const imgUrls = files
                         .filter(f => f.type === 'file' && /\.(jpe?g|png|gif|webp|avif)$/i.test(f.name))
                         .sort((a, b) => a.name.localeCompare(b.name))
@@ -371,14 +360,13 @@ async function fetchFolderImages(folders) {
 
         const cached = folderImageCache.get(key);
         if (Array.isArray(cached)) urls.push(...cached);
-        // else: error object — silently skip (error shown in gallery)
     }
     return urls;
 }
 
 // ── Date helpers ─────────────────────────────────────────────────────────────
 function parseDate(str) {
-    const parts = String(str).trim().split('/');
+    const parts = String(str || '').trim().split('/');
     if (parts.length !== 3) return str;
     const [d, m, y] = parts.map(Number);
     if (!d || !m || !y) return str;
@@ -387,29 +375,13 @@ function parseDate(str) {
     });
 }
 
-function formatDateRange(raw) {
-    const parts = String(raw || '').split(';').map(s => s.trim()).filter(Boolean);
-    if (parts.length === 0) return '';
-    if (parts.length === 1) return parseDate(parts[0]);
-    return `${parseDate(parts[0])} – ${parseDate(parts[1])}`;
-}
-
-// ── CSV helpers ──────────────────────────────────────────────────────────────
-function splitSemi(value) {
-    return String(value || '').split(';').map(s => s.trim()).filter(Boolean);
-}
-
-function col(row, ...keys) {
-    for (const key of keys) {
-        const lk = key.toLowerCase();
-        for (const k of Object.keys(row)) {
-            if (k.trim().toLowerCase() === lk) {
-                const v = row[k];
-                if (v !== '' && v !== undefined && v !== null) return v;
-            }
-        }
-    }
-    return '';
+// dates is a 2-element array ["dd/mm/yyyy", "dd/mm/yyyy"].
+// Shows a single date when both values are equal.
+function formatDates(dates) {
+    if (!dates || dates.length === 0) return '';
+    const start = parseDate(dates[0]);
+    if (dates.length === 1 || dates[0] === dates[1]) return start;
+    return `${start} – ${parseDate(dates[1])}`;
 }
 
 // ── Gallery state ────────────────────────────────────────────────────────────
@@ -484,13 +456,14 @@ const modalAttenders = document.getElementById('modal-attenders-list');
 
 function fillList(ul, items, emptyText) {
     ul.innerHTML = '';
-    if (items.length === 0) {
+    const list = Array.isArray(items) ? items.filter(Boolean) : [];
+    if (list.length === 0) {
         const li = document.createElement('li');
         li.textContent = emptyText;
         li.className = 'empty';
         ul.appendChild(li);
     } else {
-        items.forEach(text => {
+        list.forEach(text => {
             const li = document.createElement('li');
             li.textContent = text;
             ul.appendChild(li);
@@ -498,20 +471,18 @@ function fillList(ul, items, emptyText) {
     }
 }
 
-async function openModal(name, dates, sites, attenders, folders) {
-    // Increment generation id — invalidates any in-progress image loads
+async function openModal(entry) {
     const myGenId = ++galleryGenId;
 
-    modalName.textContent = name;
+    modalName.textContent = entry.name || '(unnamed)';
 
-    const datesStr = formatDateRange(dates);
+    const datesStr = formatDates(entry.dates);
     modalDatesVal.textContent = datesStr || 'Not specified';
     modalDatesVal.className   = datesStr ? '' : 'empty';
 
-    fillList(modalSites,     sites,     'None listed');
-    fillList(modalAttenders, attenders, 'None listed');
+    fillList(modalSites,     entry.sites,     'None listed');
+    fillList(modalAttenders, entry.attenders, 'None listed');
 
-    // Show gallery in loading state while we fetch the folder contents
     galleryPics = [];
     resetGallery();
     galleryLoading.style.display = 'block';
@@ -522,21 +493,18 @@ async function openModal(name, dates, sites, attenders, folders) {
     modal.classList.add('active');
     document.getElementById('modal-body').scrollTop = 0;
 
+    const folders = entry.pictures ? [entry.pictures] : [];
     const pics = await fetchFolderImages(folders);
-    if (myGenId !== galleryGenId) return; // another marker was clicked while fetching
+    if (myGenId !== galleryGenId) return;
 
     galleryPics = pics;
     if (pics.length === 0) {
         galleryLoading.style.display = 'none';
-        // Check if any folder returned an API error
-        const errs = folders
-            .map(f => folderImageCache.get(f.trim().toLowerCase()))
-            .filter(v => v && !Array.isArray(v))
-            .map(v => v.error);
-        galleryError.textContent = errs.length
-            ? errs[0]
-            : folders.length
-                ? `No images found in folder "${folders.join(', ')}". Check the browser console (F12) for details.`
+        const cached = entry.pictures ? folderImageCache.get(entry.pictures.toLowerCase()) : null;
+        galleryError.textContent = (cached && !Array.isArray(cached))
+            ? cached.error
+            : entry.pictures
+                ? `No images found in folder "${entry.pictures}".`
                 : 'No image folder specified.';
         galleryError.style.display = 'block';
     } else {
@@ -545,28 +513,23 @@ async function openModal(name, dates, sites, attenders, folders) {
 }
 
 function closeModal() { modal.classList.remove('active'); }
-
 document.getElementById('modal-close').addEventListener('click', closeModal);
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 
 // ── Marker rendering ─────────────────────────────────────────────────────────
-function loadLocations(rows, filename) {
+function loadLocations(entries, filename) {
     activeMarkers.forEach(m => m.remove());
     activeMarkers = [];
 
     let skipped = 0;
     const bounds = [];
 
-    rows.forEach(row => {
-        const name      = String(col(row, 'name')                  || '').trim() || '(unnamed)';
-        const lat       = parseFloat(col(row, 'latitude'));
-        const lng       = parseFloat(col(row, 'longitude'));
-        const dates     = String(col(row, 'dates')                 || '').trim();
-        const sites     = splitSemi(col(row, 'sites'));
-        const attenders = splitSemi(col(row, 'attenders'));
-        const folders   = splitSemi(col(row, 'pictures', 'picture'));
-
+    entries.forEach(entry => {
+        const lat = parseFloat(entry.latitude);
+        const lng = parseFloat(entry.longitude);
         if (isNaN(lat) || isNaN(lng)) { skipped++; return; }
+
+        const name = entry.name || '(unnamed)';
 
         const marker = L.circleMarker([lat, lng], { ...BASE_STYLE })
             .bindTooltip(name, {
@@ -582,7 +545,7 @@ function loadLocations(rows, filename) {
         marker.on('mouseout', function () {
             this.setStyle({ fillColor: BASE_STYLE.fillColor, radius: BASE_STYLE.radius });
         });
-        marker.on('click', () => openModal(name, dates, sites, attenders, folders));
+        marker.on('click', () => openModal(entry));
 
         activeMarkers.push(marker);
         bounds.push([lat, lng]);
@@ -590,11 +553,11 @@ function loadLocations(rows, filename) {
 
     const n = activeMarkers.length;
     if (n === 0) {
-        setStatus(`No valid rows in "${filename}". Expected columns: name, latitude, longitude, dates, attenders, sites, pictures.`, 'error');
+        setStatus(`No valid entries in "${filename}".`, 'error');
         return;
     }
 
-    const skipNote = skipped ? `  (${skipped} row${skipped > 1 ? 's' : ''} skipped — missing coordinates)` : '';
+    const skipNote = skipped ? `  (${skipped} skipped — missing coordinates)` : '';
     setStatus(`${n} location${n !== 1 ? 's' : ''} loaded from "${filename}"${skipNote}`, 'ok');
 
     if (bounds.length > 1)        map.fitBounds(bounds, { padding: [60, 60], maxZoom: 13 });
@@ -602,17 +565,13 @@ function loadLocations(rows, filename) {
 }
 
 // ── Data fetching ─────────────────────────────────────────────────────────────
-async function fetchCSV(path) {
+async function fetchJSON(path) {
     setStatus(`Loading ${path}…`);
     try {
-        // no-cache ensures the latest version is always fetched from the server
         const res = await fetch(path, { cache: 'no-cache' });
         if (!res.ok) throw new Error(`HTTP ${res.status} — ${res.statusText}`);
-        const text = await res.text();
-        const wb   = XLSX.read(text, { type: 'string' });
-        const ws   = wb.Sheets[wb.SheetNames[0]];
-        const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
-        loadLocations(rows, path);
+        const entries = await res.json();
+        loadLocations(entries, path);
     } catch (err) {
         const hint = location.protocol === 'file:'
             ? ' (Tip: serve via a local web server — file:// blocks fetch)'
@@ -628,28 +587,24 @@ document.getElementById('file-input').addEventListener('change', function (e) {
     const reader = new FileReader();
     reader.onload = evt => {
         try {
-            const wb   = XLSX.read(new Uint8Array(evt.target.result), { type: 'array' });
-            const ws   = wb.Sheets[wb.SheetNames[0]];
-            const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
-            loadLocations(rows, file.name);
+            const entries = JSON.parse(evt.target.result);
+            loadLocations(entries, file.name);
         } catch (err) {
             setStatus('Error reading file: ' + err.message, 'error');
         }
     };
-    reader.readAsArrayBuffer(file);
+    reader.readAsText(file);
 });
 
-document.getElementById('reload-btn').addEventListener('click', () => fetchCSV('locations.csv'));
+document.getElementById('reload-btn').addEventListener('click', () => fetchJSON('locations.json'));
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
 function setStatus(msg, type = '') {
     const el = document.getElementById('status');
     el.textContent = msg;
     el.className = type;
 }
 
-// ── Boot — always fetch fresh CSV on load ─────────────────────────────────────
-window.addEventListener('DOMContentLoaded', () => fetchCSV('locations.csv'));
+window.addEventListener('DOMContentLoaded', () => fetchJSON('locations.json'));
 </script>
 </body>
 </html>
