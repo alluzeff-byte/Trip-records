@@ -1,9 +1,17 @@
 ﻿name,latitude,longitude,dates,attenders,sites,picture
-Exeter,50.7184,-3.5339,14/05/2025;14/05/2025,Papa,Exeter Quay;Exeter Cathedral,Exeter_24
-Streatley,51.5237,-1.144,14/05/2025;15/05/2025,Papa,Goring & Streatley Bridge,Streatley_24
-Oxford,51.752,-1.2577,15/05/2025;16/05/2025,Papa,University of Oxford;University Church of St Mary the Virgin;The Sheldonian Theatre;Oxford University Museum of Natural History,Oxford_24
-Windsor,51.4817,-0.6142,15/05/2025;16/05/2025,Papa,Windsor Castle,Windsor_24
-Newburgh,56.349,-3.239,19/05/2025;19/05/2025,Papa;Mama;Lesha;Oksana,Newburgh Seal Beach;Balmedie Beach,Newburgh_24
+London,51.5074,-0.1278,02/01/2024;05/01/2024,Papa;Mama;Lesha;Oksana,Tower of London;Tower Bridge;The Shard;City of London;Buckingham Palace;Big Ben;Westminster Abbey;Cutty Sark;National Maritime Museum;Prime Meridian;Baker Street;London Zoo;Natural History Museum;Science Museum;River Thames;Trafalgar Square,London_24
+Glasgow,55.8642,-4.2518,10/02/2024;12/02/2024,Papa;Mama;Lesha;Oksana;David,Glasgow Science Centre;Riverside Museum;Glasgow Cathedral;People's Palace;University of Glasgow;Finnieston Crane;Hunterian Zoology Museum,Glasgow_24
+Loch Muick,56.996,-3.425,30/03/2024;30/03/2024,Papa;Mama;Lesha;Oksana;Graham,Glas-allt-Shiel,Highlands_24
+Dundee,56.462,-2.9707,14/04/2024;14/04/2024,Papa;Mama;Lesha;Oksana,Discovery Point and RRS Discovery;Dundee Maritime Trail;Verdant Works Museum;Dundee Law,Dundee_24
+Dunnottar,56.9469,-2.197,05/05/2024;05/05/2024,Papa;Mama;Lesha;Oksana,Dunnottar Castle,Dunnotar_24
+Stonehaven,56.964,-2.211,05/05/2024;05/05/2024,Papa;Mama;Lesha;Oksana,Stonehaven War Memorial;Stonehaven Harbour;Stonehaven Tolbooth Museum,Stonehaven_24
+Ballater,57.05,-3.04,11/05/2024;11/05/2024,Papa;Mama;Lesha;Oksana,,Ballater_24
+Balmoral,57.0397,-3.2293,11/05/2024;11/05/2024,Papa;Mama;Lesha;Oksana,Balmoral Castle,Balmoral_24
+Exeter,50.7184,-3.5339,14/05/2024;14/05/2024,Papa,Exeter Quay;Exeter Cathedral,Exeter_24
+Streatley,51.5237,-1.144,14/05/2024;15/05/2024,Papa,Goring & Streatley Bridge,Streatley_24
+Oxford,51.752,-1.2577,15/05/2024;16/05/2024,Papa,University of Oxford;University Church of St Mary the Virgin;The Sheldonian Theatre;Oxford University Museum of Natural History,Oxford_24
+Windsor,51.4817,-0.6142,16/05/2024;16/05/2024,Papa,Windsor Castle,Windsor_24
+Newburgh,56.349,-3.239,19/05/2024;19/05/2024,Papa;Mama;Lesha;Oksana,Newburgh Seal Beach;Balmedie Beach,Newburgh_24
 Perth,56.3969,-3.437,02/06/2024;02/06/2024,Papa;Mama;Lesha;Oksana,Perth Museum;Perth Art Gallery;Norie-Miller Walk;Bellwood Riverside Park;South Inch Park,Perth_24
 Lancaster,54.047,-2.801,27/07/2024;28/07/2024,Papa;Mama;Lesha;Oksana,Williamson Park;Lancaster City Museum;Lancaster Castle;Lancaster Maritime Museum,Lancaster_24
 Morecambe,54.0718,-2.8633,27/07/2024;27/07/2024,Papa;Mama;Lesha;Oksana,Eric Morecambe Statue,Morecambe_24
