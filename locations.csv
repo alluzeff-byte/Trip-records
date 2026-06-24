@@ -1,4 +1,4 @@
-﻿name,latitude,longitude,dates,attenders,sites,picture
+﻿name,latitude,longitude,dates,attenders,sites,pictures
 London,51.5074,-0.1278,02/01/2024;05/01/2024,Papa;Mama;Lesha;Oksana,Tower of London;Tower Bridge;The Shard;City of London;Buckingham Palace;Big Ben;Westminster Abbey;Cutty Sark;National Maritime Museum;Prime Meridian;Baker Street;London Zoo;Natural History Museum;Science Museum;River Thames;Trafalgar Square,London_24
 Glasgow,55.8642,-4.2518,10/02/2024;12/02/2024,Papa;Mama;Lesha;Oksana;David,Glasgow Science Centre;Riverside Museum;Glasgow Cathedral;People's Palace;University of Glasgow;Finnieston Crane;Hunterian Zoology Museum,Glasgow_24
 Loch Muick,56.996,-3.425,30/03/2024;30/03/2024,Papa;Mama;Lesha;Oksana;Graham,Glas-allt-Shiel,Highlands_24
@@ -36,5 +36,5 @@ Kelpies,56.0189,-3.7558,25/10/2024;25/10/2024,Papa;Mama;Lesha;Oksana,The Kelpies
 Boness,56.0169,-3.6086,25/10/2024;25/10/2024,Papa;Mama;Lesha;Oksana,Museum of Scottish Railways,Boness_24
 Edinburgh,55.9533,-3.1883,26/10/2024;26/10/2024,Papa;Mama;Lesha;Oksana,Edinburgh Zoo;Arthur's Seat,Edinburgh_24
 Dunfermline,53.4084,-2.9916,30/10/2024;30/10/2024,Papa,Dunfermline Abbey and Palace;Pittencrieff Park,Dunfermline_24
-Newcastle,51.4545,-2.5879,28/12/2024;30/12/2024,Papa;Mama;Lesha;Oksana,Newcastle Castle;Newcastle Cathedral;Gateshead Millennium Bridge;Baltic Centre for Contemporary Art;Tyne Bridge;St James Park;Great North Museum: Hancock,Newcastle_24
+Newcastle,51.4545,-2.5879,28/12/2024;30/12/2024,Papa;Mama;Lesha;Oksana,Newcastle Castle;Newcastle Cathedral;Gateshead Millennium Bridge;Baltic Centre for Contemporary Art;Tyne Bridge;St James Park;Great North Museum Hancock,Newcastle_24
 Sanderland,53.8008,-1.5491,29/12/2024;29/12/2024,Papa;Mama;Lesha;Oksana,National Glass Centre;Monkwearmouth Railway Bridge;Roker Beach;Mowbray Park,Sanderland_24
