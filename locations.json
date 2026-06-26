@@ -349,5 +349,78 @@
     "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
     "sites": ["National Glass Centre", "Monkwearmouth Railway Bridge", "Roker Beach", "Mowbray Park"],
     "pictures": "Sanderland_24"
+  },
+  {
+    "name": "Cirali",
+    "latitude": 36.417,
+    "longitude": 30.477,
+    "dates": ["28/06/2024", "28/06/2024"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Olympos Ancient City"],
+    "pictures": "Cirali_24"
+  },
+  {
+    "name": "Antalya",
+    "latitude": 36.8969,
+    "longitude": 30.7133,
+    "dates": ["23/06/2024", "30/06/2024"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana", "Dedushka", "Babushka Luba"],
+    "sites": ["Antalya Aquarium", "Antalya Toy Museum", "Mustafa Kemal Monument", "Ozgur Kopek Oyun Park", "Antalya Ethnographic Museum"],
+    "pictures": "Antalya_24"
+  },
+  {
+    "name": "London",
+    "latitude": 51.5074,
+    "longitude": -0.1278,
+    "dates": ["28/09/2023", "29/09/2023"],
+    "attenders": ["Papa"],
+    "sites": ["London City", "Greenwich"],
+    "pictures": "London_23"
+  },
+  {
+    "name": "London",
+    "latitude": 51.5074,
+    "longitude": -0.1278,
+    "dates": ["31/07/2023", "03/08/2023"],
+    "attenders": ["Papa"],
+    "sites": ["Westminster", "Albert Embankment", "Buckingham Palace", "Trafalgar Square", "Natural History Museum", "Hyde Park", "Shell building"],
+    "pictures": "London_23"
+  },
+  {
+    "name": "Fort George",
+    "latitude": 57.6206,
+    "longitude": -4.0884,
+    "dates": ["25/11/2023", "25/11/2023"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Fort George"],
+    "pictures": "FortGeorge_23"
+  },
+  {
+    "name": "Inverness",
+    "latitude": 57.4778,
+    "longitude": -4.2247,
+    "dates": ["25/11/2023", "25/11/2023"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Inverness Cathedral", "Ness Islands"],
+    "pictures": "Inverness_23"
+  },
+  {
+    "name": "Edinburgh",
+    "latitude": 55.9533,
+    "longitude": -3.1883,
+    "dates": ["17/10/2023", "17/10/2023"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Edinburgh Castle", "National Museum of Scotland"],
+    "pictures": "Edinburgh_23_2"
+  },
+  {
+    "name": "Edinburgh",
+    "latitude": 55.9533,
+    "longitude": -3.1883,
+    "dates": ["11/07/2023", "12/07/2023"],
+    "attenders": ["Papa"],
+    "sites": ["National Galleries of Scotland", "National Monument of Scotland", "Lawnmarket", "The Royal Yacht Britannia"],
+    "pictures": "Edinburgh_23"
   }
 ]
+
