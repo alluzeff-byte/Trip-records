@@ -6,7 +6,6 @@
     <title>Trip Records</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -30,25 +29,45 @@
         #login-box {
             background: #fff;
             border-radius: 16px;
-            padding: 48px 40px;
-            max-width: 360px;
+            padding: 40px 36px 36px;
+            max-width: 380px;
             width: 100%;
-            text-align: center;
             box-shadow: 0 24px 64px rgba(0,0,0,0.5);
         }
         #login-box h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             color: #1a1a2e;
-            margin-bottom: 8px;
+            text-align: center;
+            margin-bottom: 6px;
         }
-        #login-box p {
+        .login-subtitle {
             color: #888;
-            font-size: 14px;
-            margin-bottom: 32px;
+            font-size: 13.5px;
+            text-align: center;
             line-height: 1.5;
+            margin-bottom: 24px;
         }
-        #login-btn {
+        .form-field {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            margin-bottom: 10px;
+            transition: border-color 0.15s;
+            display: block;
+        }
+        .form-field:focus { border-color: #4361ee; }
+        .form-error {
+            color: #e63946;
+            font-size: 12.5px;
+            min-height: 18px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .form-btn {
             background: #4361ee;
             color: #fff;
             border: none;
@@ -59,8 +78,10 @@
             cursor: pointer;
             width: 100%;
             transition: background 0.15s;
+            margin-top: 4px;
         }
-        #login-btn:hover { background: #3451d1; }
+        .form-btn:hover:not(:disabled) { background: #3451d1; }
+        .form-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
         /* ── Toolbar ─────────────────────────────────────────────────────── */
         #toolbar {
@@ -257,12 +278,28 @@
 </head>
 <body>
 
-<!-- ── Login screen (hidden once authenticated) ───────────────────────────── -->
+<!-- ── Login screen ───────────────────────────────────────────────────────── -->
 <div id="login-screen">
     <div id="login-box">
         <h1>Trip Records</h1>
-        <p>This is a private family album.<br>Please log in to continue.</p>
-        <button id="login-btn">Log in</button>
+
+        <!-- Normal login -->
+        <div id="login-view">
+            <p class="login-subtitle">This is a private family album.<br>Please log in to continue.</p>
+            <input class="form-field" type="email"    id="login-email"    placeholder="Email address" autocomplete="email" />
+            <input class="form-field" type="password" id="login-password" placeholder="Password"      autocomplete="current-password" />
+            <p class="form-error" id="login-error"></p>
+            <button class="form-btn" id="login-btn">Log in</button>
+        </div>
+
+        <!-- Set-password after invite link -->
+        <div id="invite-view" style="display:none">
+            <p class="login-subtitle">You've been invited!<br>Choose a password to get started.</p>
+            <input class="form-field" type="password" id="sp-password" placeholder="New password (min 6 characters)" />
+            <input class="form-field" type="password" id="sp-confirm"  placeholder="Confirm password" />
+            <p class="form-error" id="sp-error"></p>
+            <button class="form-btn" id="sp-btn">Set password &amp; log in</button>
+        </div>
     </div>
 </div>
 
@@ -271,7 +308,7 @@
     <button class="tb-btn primary" id="reload-btn">&#8635; Reload</button>
     <label class="tb-btn" for="file-input">Load file…</label>
     <input type="file" id="file-input" accept=".json" />
-    <span id="status">Loading locations.json…</span>
+    <span id="status">Loading…</span>
     <span id="user-info"></span>
     <button class="tb-btn" id="logout-btn">Log out</button>
 </div>
@@ -317,6 +354,8 @@
 
 <script>
 const GITHUB_API_IMAGES = 'https://api.github.com/repos/alluzeff-byte/Trip-records/contents/images/';
+const GOTRUE  = window.location.origin + '/.netlify/identity';
+const IS_LOCAL = ['localhost', '127.0.0.1'].includes(location.hostname);
 
 // ── Map ──────────────────────────────────────────────────────────────────────
 const map = L.map('map', { preferCanvas: true }).setView([54.5, -3.5], 6);
@@ -344,16 +383,13 @@ async function fetchFolderImages(folders) {
         if (!folderImageCache.has(key)) {
             try {
                 const apiUrl = GITHUB_API_IMAGES + encodeURIComponent(name);
-                console.log('[images] fetching', apiUrl);
                 const res = await fetch(apiUrl);
                 if (!res.ok) {
                     const body = await res.text();
                     let msg; try { msg = JSON.parse(body).message; } catch { msg = body; }
-                    console.error('[images] API error', res.status, msg);
                     folderImageCache.set(key, { error: `GitHub API ${res.status}: ${msg}` });
                 } else {
                     const files = await res.json();
-                    console.log('[images] contents:', files.map(f => f.name));
                     const imgUrls = files
                         .filter(f => f.type === 'file' && /\.(jpe?g|png|gif|webp|avif)$/i.test(f.name))
                         .sort((a, b) => a.name.localeCompare(b.name))
@@ -361,7 +397,6 @@ async function fetchFolderImages(folders) {
                     folderImageCache.set(key, imgUrls);
                 }
             } catch (err) {
-                console.error('[images] fetch failed:', err);
                 folderImageCache.set(key, { error: err.message });
             }
         }
@@ -575,10 +610,7 @@ async function fetchJSON(path) {
         const entries = await res.json();
         loadLocations(entries, path);
     } catch (err) {
-        const hint = location.protocol === 'file:'
-            ? ' (Tip: serve via a local web server — file:// blocks fetch)'
-            : '';
-        setStatus(`Could not load ${path}: ${err.message}${hint}`, 'error');
+        setStatus(`Could not load ${path}: ${err.message}`, 'error');
     }
 }
 
@@ -605,37 +637,156 @@ function setStatus(msg, type = '') {
     el.className = type;
 }
 
-// ── Auth ─────────────────────────────────────────────────────────────────────
+// ── Auth (GoTrue direct API — no widget) ─────────────────────────────────────
 const loginScreen = document.getElementById('login-screen');
+const loginView   = document.getElementById('login-view');
+const inviteView  = document.getElementById('invite-view');
 const userInfo    = document.getElementById('user-info');
 const logoutBtn   = document.getElementById('logout-btn');
 
-const IS_LOCAL = ['localhost', '127.0.0.1'].includes(location.hostname);
+function storeSession(data, email) {
+    localStorage.setItem('nf_token',   data.access_token);
+    localStorage.setItem('nf_exp',     String(Date.now() + (data.expires_in || 3600) * 1000));
+    if (data.refresh_token) localStorage.setItem('nf_refresh', data.refresh_token);
+    if (email) localStorage.setItem('nf_email', email);
+}
 
-function showApp(user) {
+function clearSession() {
+    ['nf_token', 'nf_exp', 'nf_refresh', 'nf_email'].forEach(k => localStorage.removeItem(k));
+}
+
+function sessionValid() {
+    return !!localStorage.getItem('nf_token') &&
+           Date.now() < parseInt(localStorage.getItem('nf_exp') || '0');
+}
+
+async function tryRefresh() {
+    const rt = localStorage.getItem('nf_refresh');
+    if (!rt) return false;
+    try {
+        const res = await fetch(`${GOTRUE}/token`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `grant_type=refresh_token&refresh_token=${encodeURIComponent(rt)}`
+        });
+        if (!res.ok) return false;
+        const data = await res.json();
+        storeSession(data, localStorage.getItem('nf_email'));
+        return true;
+    } catch { return false; }
+}
+
+function showApp() {
     loginScreen.style.display = 'none';
-    if (user) userInfo.textContent = user.email;
+    const email = localStorage.getItem('nf_email');
+    if (email) userInfo.textContent = email;
     fetchJSON('locations.json');
 }
 
-function showLogin() {
+function showLoginScreen(errMsg) {
     loginScreen.style.display = 'flex';
+    loginView.style.display   = 'block';
+    inviteView.style.display  = 'none';
     userInfo.textContent = '';
     activeMarkers.forEach(m => m.remove());
     activeMarkers = [];
+    if (errMsg) document.getElementById('login-error').textContent = errMsg;
 }
 
-if (IS_LOCAL) {
-    // Skip auth when running locally via Live Server
-    showApp(null);
-} else {
-    netlifyIdentity.init();
-    netlifyIdentity.on('init',   user => { if (user) showApp(user); else showLogin(); });
-    netlifyIdentity.on('login',  user => { netlifyIdentity.close(); showApp(user); });
-    netlifyIdentity.on('logout', ()   => showLogin());
+// ── Invite-link flow ──────────────────────────────────────────────────────────
+const inviteToken = new URLSearchParams(location.hash.slice(1)).get('invite_token');
 
-    document.getElementById('login-btn').addEventListener('click', () => netlifyIdentity.open('login'));
-    logoutBtn.addEventListener('click', () => netlifyIdentity.logout());
+if (inviteToken) {
+    history.replaceState(null, '', location.pathname);
+    loginView.style.display  = 'none';
+    inviteView.style.display = 'block';
+}
+
+document.getElementById('sp-btn').addEventListener('click', async () => {
+    const pw    = document.getElementById('sp-password').value;
+    const pw2   = document.getElementById('sp-confirm').value;
+    const errEl = document.getElementById('sp-error');
+    const btn   = document.getElementById('sp-btn');
+    errEl.textContent = '';
+
+    if (pw.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; return; }
+    if (pw !== pw2)    { errEl.textContent = 'Passwords do not match.'; return; }
+
+    btn.disabled    = true;
+    btn.textContent = 'Setting password…';
+    try {
+        const res = await fetch(`${GOTRUE}/verify`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: 'invite', token: inviteToken, password: pw })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error_description || data.msg || 'Could not set password');
+        storeSession(data, data.email);
+        showApp();
+    } catch (e) {
+        errEl.textContent = e.message;
+        btn.disabled    = false;
+        btn.textContent = 'Set password & log in';
+    }
+});
+
+document.getElementById('sp-confirm').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('sp-btn').click();
+});
+
+// ── Login form ────────────────────────────────────────────────────────────────
+document.getElementById('login-btn').addEventListener('click', async () => {
+    const email    = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const errEl    = document.getElementById('login-error');
+    const btn      = document.getElementById('login-btn');
+    errEl.textContent = '';
+
+    if (!email || !password) { errEl.textContent = 'Please enter email and password.'; return; }
+
+    btn.disabled    = true;
+    btn.textContent = 'Logging in…';
+    try {
+        const res = await fetch(`${GOTRUE}/token`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `grant_type=password&username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error_description || data.msg || 'Login failed');
+        storeSession(data, email);
+        showApp();
+    } catch (e) {
+        errEl.textContent = e.message;
+        btn.disabled    = false;
+        btn.textContent = 'Log in';
+    }
+});
+
+document.getElementById('login-email').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('login-password').focus();
+});
+document.getElementById('login-password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('login-btn').click();
+});
+
+// ── Logout ────────────────────────────────────────────────────────────────────
+logoutBtn.addEventListener('click', () => { clearSession(); showLoginScreen(); });
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+if (IS_LOCAL) {
+    loginScreen.style.display = 'none';
+    fetchJSON('locations.json');
+} else if (!inviteToken) {
+    if (sessionValid()) {
+        showApp();
+    } else {
+        tryRefresh().then(ok => {
+            if (ok) showApp();
+            else { clearSession(); showLoginScreen(); }
+        });
+    }
 }
 </script>
 </body>
