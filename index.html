@@ -9,12 +9,7 @@
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
 
         /* ── Login screen ────────────────────────────────────────────────── */
         #login-screen {
@@ -83,64 +78,43 @@
         .form-btn:hover:not(:disabled) { background: #3451d1; }
         .form-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-        /* ── Toolbar ─────────────────────────────────────────────────────── */
-        #toolbar {
-            background: #1a1a2e;
-            color: #e0e0e0;
-            padding: 0 20px;
-            height: 54px;
+        /* ── Map ─────────────────────────────────────────────────────────── */
+        #map { width: 100%; height: 100vh; }
+
+        /* ── Logout button (floating) ─────────────────────────────────────── */
+        #logout-float {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
-            border-bottom: 1px solid #2d2d4a;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+            gap: 8px;
         }
-        #toolbar h1 {
-            font-size: 15px;
-            font-weight: 700;
-            color: #fff;
-            white-space: nowrap;
-            letter-spacing: 0.3px;
-            margin-right: 4px;
-        }
-        .tb-btn {
-            background: #2d2d4a;
-            color: #ccc;
-            border: 1px solid #3d3d5e;
-            padding: 6px 13px;
+        #user-info {
+            font-size: 11.5px;
+            color: rgba(255,255,255,0.6);
+            background: rgba(26,26,46,0.7);
+            padding: 5px 10px;
             border-radius: 6px;
-            cursor: pointer;
-            font-size: 12.5px;
-            font-weight: 500;
+            backdrop-filter: blur(4px);
+            max-width: 180px;
+            overflow: hidden;
+            text-overflow: ellipsis;
             white-space: nowrap;
+        }
+        #logout-btn {
+            background: rgba(26,26,46,0.82);
+            color: #ccc;
+            border: 1px solid rgba(255,255,255,0.14);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
             transition: background 0.15s, color 0.15s;
         }
-        .tb-btn:hover { background: #3d3d5e; color: #fff; }
-        .tb-btn.primary { background: #4361ee; border-color: #4361ee; color: #fff; }
-        .tb-btn.primary:hover { background: #3451d1; }
-        #file-input { display: none; }
-        #status {
-            font-size: 12px;
-            color: #777;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            flex: 1;
-        }
-        #status.error { color: #e57373; }
-        #status.ok    { color: #81c784; }
-        #user-info {
-            font-size: 12px;
-            color: #888;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 200px;
-        }
-
-        /* ── Map ─────────────────────────────────────────────────────────── */
-        #map { flex: 1; }
+        #logout-btn:hover { background: rgba(26,26,46,1); color: #fff; }
 
         /* ── Marker labels ───────────────────────────────────────────────── */
         .marker-label {
@@ -156,6 +130,28 @@
             pointer-events: none !important;
         }
         .marker-label::before { display: none !important; }
+
+        /* ── Trip picker popup ───────────────────────────────────────────── */
+        .trip-picker { min-width: 190px; padding: 2px 0; }
+        .picker-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            padding: 0 4px 8px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 4px;
+        }
+        .trip-pick {
+            padding: 8px 4px;
+            font-size: 13.5px;
+            color: #1a1a2e;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.1s, color 0.1s;
+        }
+        .trip-pick:hover { background: #f0f2ff; color: #4361ee; }
 
         /* ── Modal overlay ───────────────────────────────────────────────── */
         #modal {
@@ -283,7 +279,6 @@
     <div id="login-box">
         <h1>Trip Records</h1>
 
-        <!-- Normal login -->
         <div id="login-view">
             <p class="login-subtitle">This is a private family album.<br>Please log in to continue.</p>
             <input class="form-field" type="email"    id="login-email"    placeholder="Email address" autocomplete="email" />
@@ -295,7 +290,6 @@
             </p>
         </div>
 
-        <!-- Forgot password -->
         <div id="forgot-view" style="display:none">
             <p class="login-subtitle">Enter your email and we'll send a password reset link.</p>
             <input class="form-field" type="email" id="forgot-email" placeholder="Email address" autocomplete="email" />
@@ -306,7 +300,6 @@
             </p>
         </div>
 
-        <!-- Set-password after invite or recovery link -->
         <div id="invite-view" style="display:none">
             <p class="login-subtitle" id="sp-subtitle">Choose a password to get started.</p>
             <input class="form-field" type="password" id="sp-password" placeholder="New password (min 6 characters)" />
@@ -317,14 +310,10 @@
     </div>
 </div>
 
-<div id="toolbar">
-    <h1>Trip Records</h1>
-    <button class="tb-btn primary" id="reload-btn">&#8635; Reload</button>
-    <label class="tb-btn" for="file-input">Load file…</label>
-    <input type="file" id="file-input" accept=".json" />
-    <span id="status">Loading…</span>
+<!-- ── Floating logout ────────────────────────────────────────────────────── -->
+<div id="logout-float">
     <span id="user-info"></span>
-    <button class="tb-btn" id="logout-btn">Log out</button>
+    <button id="logout-btn">Log out</button>
 </div>
 
 <div id="map"></div>
@@ -368,7 +357,7 @@
 
 <script>
 const GITHUB_API_IMAGES = 'https://api.github.com/repos/alluzeff-byte/Trip-records/contents/images/';
-const GOTRUE  = window.location.origin + '/.netlify/identity';
+const GOTRUE   = window.location.origin + '/.netlify/identity';
 const IS_LOCAL = ['localhost', '127.0.0.1'].includes(location.hostname);
 
 // ── Map ──────────────────────────────────────────────────────────────────────
@@ -396,8 +385,7 @@ async function fetchFolderImages(folders) {
 
         if (!folderImageCache.has(key)) {
             try {
-                const apiUrl = GITHUB_API_IMAGES + encodeURIComponent(name);
-                const res = await fetch(apiUrl);
+                const res = await fetch(GITHUB_API_IMAGES + encodeURIComponent(name));
                 if (!res.ok) {
                     const body = await res.text();
                     let msg; try { msg = JSON.parse(body).message; } catch { msg = body; }
@@ -439,7 +427,7 @@ function formatDates(dates) {
     return `${start} – ${parseDate(dates[1])}`;
 }
 
-// ── Gallery state ────────────────────────────────────────────────────────────
+// ── Gallery ──────────────────────────────────────────────────────────────────
 let galleryPics  = [];
 let galleryIdx   = 0;
 let galleryGenId = 0;
@@ -462,8 +450,8 @@ function resetGallery() {
 
 function showImage(index) {
     const myId = ++galleryGenId;
-    const src  = galleryPics[index];
     galleryIdx = index;
+    const src  = galleryPics[index];
 
     resetGallery();
     galleryLoading.style.display = 'block';
@@ -530,7 +518,6 @@ async function openModal(entry) {
     const myGenId = ++galleryGenId;
 
     modalName.textContent = entry.name || '(unnamed)';
-
     const datesStr = formatDates(entry.dates);
     modalDatesVal.textContent = datesStr || 'Not specified';
     modalDatesVal.className   = datesStr ? '' : 'empty';
@@ -548,8 +535,7 @@ async function openModal(entry) {
     modal.classList.add('active');
     document.getElementById('modal-body').scrollTop = 0;
 
-    const folders = entry.pictures ? [entry.pictures] : [];
-    const pics = await fetchFolderImages(folders);
+    const pics = await fetchFolderImages(entry.pictures ? [entry.pictures] : []);
     if (myGenId !== galleryGenId) return;
 
     galleryPics = pics;
@@ -558,9 +544,7 @@ async function openModal(entry) {
         const cached = entry.pictures ? folderImageCache.get(entry.pictures.toLowerCase()) : null;
         galleryError.textContent = (cached && !Array.isArray(cached))
             ? cached.error
-            : entry.pictures
-                ? `No images found in folder "${entry.pictures}".`
-                : 'No image folder specified.';
+            : entry.pictures ? `No images found in folder "${entry.pictures}".` : 'No image folder specified.';
         galleryError.style.display = 'block';
     } else {
         showImage(0);
@@ -571,22 +555,38 @@ function closeModal() { modal.classList.remove('active'); }
 document.getElementById('modal-close').addEventListener('click', closeModal);
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 
+// ── Trip picker (multiple trips at same location) ─────────────────────────────
+let pickerEntries = [];
+
+document.getElementById('map').addEventListener('click', e => {
+    const pick = e.target.closest('.trip-pick');
+    if (!pick) return;
+    const i = parseInt(pick.dataset.i, 10);
+    if (pickerEntries[i]) { map.closePopup(); openModal(pickerEntries[i]); }
+});
+
 // ── Marker rendering ─────────────────────────────────────────────────────────
-function loadLocations(entries, filename) {
+function loadLocations(entries) {
     activeMarkers.forEach(m => m.remove());
     activeMarkers = [];
 
-    let skipped = 0;
-    const bounds = [];
-
+    // Group entries by coordinate (rounded to ~1 m precision)
+    const groups = new Map();
     entries.forEach(entry => {
         const lat = parseFloat(entry.latitude);
         const lng = parseFloat(entry.longitude);
-        if (isNaN(lat) || isNaN(lng)) { skipped++; return; }
+        if (isNaN(lat) || isNaN(lng)) return;
+        const key = `${Math.round(lat * 1e5)},${Math.round(lng * 1e5)}`;
+        if (!groups.has(key)) groups.set(key, { lat, lng, items: [] });
+        groups.get(key).items.push(entry);
+    });
 
-        const name = entry.name || '(unnamed)';
+    groups.forEach(({ lat, lng, items }) => {
+        const name  = items[0].name || '(unnamed)';
+        const multi = items.length > 1;
+
         const marker = L.circleMarker([lat, lng], { ...BASE_STYLE })
-            .bindTooltip(name, {
+            .bindTooltip(multi ? `${name} (${items.length})` : name, {
                 permanent: true, direction: 'right',
                 offset: [10, 0], className: 'marker-label'
             })
@@ -599,59 +599,35 @@ function loadLocations(entries, filename) {
         marker.on('mouseout', function () {
             this.setStyle({ fillColor: BASE_STYLE.fillColor, radius: BASE_STYLE.radius });
         });
-        marker.on('click', () => openModal(entry));
+        marker.on('click', () => {
+            if (!multi) { openModal(items[0]); return; }
+
+            pickerEntries = items;
+            const rows = items.map((e, i) =>
+                `<div class="trip-pick" data-i="${i}">${formatDates(e.dates) || 'Trip ' + (i + 1)}</div>`
+            ).join('');
+            L.popup({ maxWidth: 260 })
+                .setLatLng([lat, lng])
+                .setContent(`<div class="trip-picker"><div class="picker-title">${name}</div>${rows}</div>`)
+                .openOn(map);
+        });
 
         activeMarkers.push(marker);
-        bounds.push([lat, lng]);
     });
-
-    const n = activeMarkers.length;
-    if (n === 0) { setStatus(`No valid entries in "${filename}".`, 'error'); return; }
-
-    const skipNote = skipped ? `  (${skipped} skipped — missing coordinates)` : '';
-    setStatus(`${n} location${n !== 1 ? 's' : ''} loaded from "${filename}"${skipNote}`, 'ok');
-
-    if (bounds.length > 1)        map.fitBounds(bounds, { padding: [60, 60], maxZoom: 13 });
-    else if (bounds.length === 1) map.setView(bounds[0], 11);
 }
 
 // ── Data fetching ─────────────────────────────────────────────────────────────
-async function fetchJSON(path) {
-    setStatus(`Loading ${path}…`);
+async function fetchJSON() {
     try {
-        const res = await fetch(path, { cache: 'no-cache' });
-        if (!res.ok) throw new Error(`HTTP ${res.status} — ${res.statusText}`);
-        const entries = await res.json();
-        loadLocations(entries, path);
+        const res = await fetch('locations.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        loadLocations(await res.json());
     } catch (err) {
-        setStatus(`Could not load ${path}: ${err.message}`, 'error');
+        console.error('Could not load locations.json:', err.message);
     }
 }
 
-document.getElementById('file-input').addEventListener('change', function (e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    this.value = '';
-    const reader = new FileReader();
-    reader.onload = evt => {
-        try {
-            loadLocations(JSON.parse(evt.target.result), file.name);
-        } catch (err) {
-            setStatus('Error reading file: ' + err.message, 'error');
-        }
-    };
-    reader.readAsText(file);
-});
-
-document.getElementById('reload-btn').addEventListener('click', () => fetchJSON('locations.json'));
-
-function setStatus(msg, type = '') {
-    const el = document.getElementById('status');
-    el.textContent = msg;
-    el.className = type;
-}
-
-// ── Auth (GoTrue direct API — no widget) ─────────────────────────────────────
+// ── Auth ──────────────────────────────────────────────────────────────────────
 const loginScreen = document.getElementById('login-screen');
 const loginView   = document.getElementById('login-view');
 const inviteView  = document.getElementById('invite-view');
@@ -684,8 +660,7 @@ async function tryRefresh() {
             body: `grant_type=refresh_token&refresh_token=${encodeURIComponent(rt)}`
         });
         if (!res.ok) return false;
-        const data = await res.json();
-        storeSession(data, localStorage.getItem('nf_email'));
+        storeSession(await res.json(), localStorage.getItem('nf_email'));
         return true;
     } catch { return false; }
 }
@@ -694,21 +669,21 @@ function showApp() {
     loginScreen.style.display = 'none';
     const email = localStorage.getItem('nf_email');
     if (email) userInfo.textContent = email;
-    fetchJSON('locations.json');
+    fetchJSON();
 }
 
 function showLoginScreen(errMsg) {
     loginScreen.style.display = 'flex';
     loginView.style.display   = 'block';
     inviteView.style.display  = 'none';
+    document.getElementById('forgot-view').style.display = 'none';
     userInfo.textContent = '';
     activeMarkers.forEach(m => m.remove());
     activeMarkers = [];
     if (errMsg) document.getElementById('login-error').textContent = errMsg;
 }
 
-// ── Invite / recovery link flow ───────────────────────────────────────────────
-// Use regex+decodeURIComponent (not URLSearchParams) to avoid '+' being decoded as space
+// ── Invite / recovery link ────────────────────────────────────────────────────
 function getHashParam(key) {
     const match = location.hash.slice(1).match(new RegExp('(?:^|&)' + key + '=([^&]*)'));
     return match ? decodeURIComponent(match[1]) : null;
@@ -716,7 +691,7 @@ function getHashParam(key) {
 const inviteToken   = getHashParam('invite_token');
 const recoveryToken = getHashParam('recovery_token');
 const activeToken   = inviteToken || recoveryToken;
-// Netlify's GoTrue uses "signup" for invite acceptance (not "invite")
+// Netlify GoTrue uses "signup" for invite acceptance (not "invite")
 const tokenType     = inviteToken ? 'signup' : 'recovery';
 
 if (activeToken) {
@@ -737,18 +712,11 @@ document.getElementById('sp-btn').addEventListener('click', async () => {
 
     if (pw.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; return; }
     if (pw !== pw2)    { errEl.textContent = 'Passwords do not match.'; return; }
+    if (!activeToken)  { errEl.textContent = 'Invite link expired — please ask for a new one.'; return; }
 
-    if (!activeToken) {
-        errEl.textContent = 'Invite link expired — please ask for a new one.';
-        return;
-    }
-
-    btn.disabled    = true;
-    btn.textContent = 'Setting password…';
-    errEl.style.color = '#e63946';
-    errEl.textContent = '';
+    btn.disabled = true; btn.textContent = 'Setting password…';
     try {
-        const res = await fetch(`${GOTRUE}/verify`, {
+        const res  = await fetch(`${GOTRUE}/verify`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ type: tokenType, token: activeToken, password: pw })
@@ -759,8 +727,7 @@ document.getElementById('sp-btn').addEventListener('click', async () => {
         showApp();
     } catch (e) {
         errEl.textContent = e.message;
-        btn.disabled    = false;
-        btn.textContent = 'Set password & log in';
+        btn.disabled = false; btn.textContent = 'Set password & log in';
     }
 });
 
@@ -777,37 +744,31 @@ document.getElementById('forgot-link').addEventListener('click', e => {
     forgotView.style.display = 'block';
     document.getElementById('forgot-email').value = document.getElementById('login-email').value;
 });
-
 document.getElementById('back-to-login').addEventListener('click', e => {
     e.preventDefault();
     forgotView.style.display = 'none';
     loginView.style.display  = 'block';
 });
-
 document.getElementById('forgot-btn').addEventListener('click', async () => {
     const email = document.getElementById('forgot-email').value.trim();
     const errEl = document.getElementById('forgot-error');
     const btn   = document.getElementById('forgot-btn');
     errEl.textContent = '';
-
     if (!email) { errEl.textContent = 'Please enter your email address.'; return; }
-
-    btn.disabled    = true;
-    btn.textContent = 'Sending…';
+    btn.disabled = true; btn.textContent = 'Sending…';
     try {
         await fetch(`${GOTRUE}/recover`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
         });
-        errEl.style.color   = '#2a9d8f';
-        errEl.textContent   = 'Reset link sent! Check your email.';
-        btn.textContent     = 'Sent';
-    } catch (e) {
-        errEl.style.color   = '#e63946';
-        errEl.textContent   = 'Could not send reset email. Try again.';
-        btn.disabled    = false;
-        btn.textContent = 'Send reset link';
+        errEl.style.color = '#2a9d8f';
+        errEl.textContent = 'Reset link sent! Check your email.';
+        btn.textContent   = 'Sent';
+    } catch {
+        errEl.style.color = '#e63946';
+        errEl.textContent = 'Could not send reset email. Try again.';
+        btn.disabled = false; btn.textContent = 'Send reset link';
     }
 });
 
@@ -818,13 +779,10 @@ document.getElementById('login-btn').addEventListener('click', async () => {
     const errEl    = document.getElementById('login-error');
     const btn      = document.getElementById('login-btn');
     errEl.textContent = '';
-
     if (!email || !password) { errEl.textContent = 'Please enter email and password.'; return; }
-
-    btn.disabled    = true;
-    btn.textContent = 'Logging in…';
+    btn.disabled = true; btn.textContent = 'Logging in…';
     try {
-        const res = await fetch(`${GOTRUE}/token`, {
+        const res  = await fetch(`${GOTRUE}/token`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `grant_type=password&username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
@@ -835,11 +793,9 @@ document.getElementById('login-btn').addEventListener('click', async () => {
         showApp();
     } catch (e) {
         errEl.textContent = e.message;
-        btn.disabled    = false;
-        btn.textContent = 'Log in';
+        btn.disabled = false; btn.textContent = 'Log in';
     }
 });
-
 document.getElementById('login-email').addEventListener('keydown', e => {
     if (e.key === 'Enter') document.getElementById('login-password').focus();
 });
@@ -853,7 +809,7 @@ logoutBtn.addEventListener('click', () => { clearSession(); showLoginScreen(); }
 // ── Boot ──────────────────────────────────────────────────────────────────────
 if (IS_LOCAL) {
     loginScreen.style.display = 'none';
-    fetchJSON('locations.json');
+    fetchJSON();
 } else if (!activeToken) {
     if (sessionValid()) {
         showApp();
