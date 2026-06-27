@@ -424,8 +424,8 @@
   },
   {
     "name": "Langevag",
-    "latitude": 62.437,
-    "longitude": 6.19,
+    "latitude": 59.779,
+    "longitude": 5.388,
     "dates": ["31/08/2023", "01/09/2023"],
     "attenders": ["Papa"],
     "sites": ["Bomlo"],
@@ -574,11 +574,11 @@
   },
   {
     "name": "Rhaeadr Fawr",
-    "latitude": 53.249,
-    "longitude": -4.031,
+    "latitude": 53.2105389,
+    "longitude": -3.9949639,
     "dates": ["16/10/2025", "16/10/2025"],
     "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
-    "sites": ["Rhaeadr Fawr waterfall"],
+    "sites": ["Aber Falls"],
     "pictures": "RhaeadrFawr_25"
   },
   {
