@@ -290,11 +290,25 @@
             <input class="form-field" type="password" id="login-password" placeholder="Password"      autocomplete="current-password" />
             <p class="form-error" id="login-error"></p>
             <button class="form-btn" id="login-btn">Log in</button>
+            <p style="text-align:center;margin-top:14px">
+                <a href="#" id="forgot-link" style="font-size:13px;color:#4361ee;text-decoration:none">Forgot password?</a>
+            </p>
         </div>
 
-        <!-- Set-password after invite link -->
+        <!-- Forgot password -->
+        <div id="forgot-view" style="display:none">
+            <p class="login-subtitle">Enter your email and we'll send a password reset link.</p>
+            <input class="form-field" type="email" id="forgot-email" placeholder="Email address" autocomplete="email" />
+            <p class="form-error" id="forgot-error"></p>
+            <button class="form-btn" id="forgot-btn">Send reset link</button>
+            <p style="text-align:center;margin-top:14px">
+                <a href="#" id="back-to-login" style="font-size:13px;color:#4361ee;text-decoration:none">&larr; Back to log in</a>
+            </p>
+        </div>
+
+        <!-- Set-password after invite or recovery link -->
         <div id="invite-view" style="display:none">
-            <p class="login-subtitle">You've been invited!<br>Choose a password to get started.</p>
+            <p class="login-subtitle" id="sp-subtitle">Choose a password to get started.</p>
             <input class="form-field" type="password" id="sp-password" placeholder="New password (min 6 characters)" />
             <input class="form-field" type="password" id="sp-confirm"  placeholder="Confirm password" />
             <p class="form-error" id="sp-error"></p>
@@ -693,13 +707,20 @@ function showLoginScreen(errMsg) {
     if (errMsg) document.getElementById('login-error').textContent = errMsg;
 }
 
-// ── Invite-link flow ──────────────────────────────────────────────────────────
-const inviteToken = new URLSearchParams(location.hash.slice(1)).get('invite_token');
+// ── Invite / recovery link flow ───────────────────────────────────────────────
+const hashParams    = new URLSearchParams(location.hash.slice(1));
+const inviteToken   = hashParams.get('invite_token');
+const recoveryToken = hashParams.get('recovery_token');
+const activeToken   = inviteToken || recoveryToken;
+const tokenType     = inviteToken ? 'invite' : 'recovery';
 
-if (inviteToken) {
+if (activeToken) {
     history.replaceState(null, '', location.pathname);
     loginView.style.display  = 'none';
     inviteView.style.display = 'block';
+    document.getElementById('sp-subtitle').textContent = inviteToken
+        ? "You've been invited! Choose a password to get started."
+        : 'Choose a new password for your account.';
 }
 
 document.getElementById('sp-btn').addEventListener('click', async () => {
@@ -718,7 +739,7 @@ document.getElementById('sp-btn').addEventListener('click', async () => {
         const res = await fetch(`${GOTRUE}/verify`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: 'invite', token: inviteToken, password: pw })
+            body: JSON.stringify({ type: tokenType, token: activeToken, password: pw })
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error_description || data.msg || 'Could not set password');
@@ -733,6 +754,49 @@ document.getElementById('sp-btn').addEventListener('click', async () => {
 
 document.getElementById('sp-confirm').addEventListener('keydown', e => {
     if (e.key === 'Enter') document.getElementById('sp-btn').click();
+});
+
+// ── Forgot password ───────────────────────────────────────────────────────────
+const forgotView = document.getElementById('forgot-view');
+
+document.getElementById('forgot-link').addEventListener('click', e => {
+    e.preventDefault();
+    loginView.style.display  = 'none';
+    forgotView.style.display = 'block';
+    document.getElementById('forgot-email').value = document.getElementById('login-email').value;
+});
+
+document.getElementById('back-to-login').addEventListener('click', e => {
+    e.preventDefault();
+    forgotView.style.display = 'none';
+    loginView.style.display  = 'block';
+});
+
+document.getElementById('forgot-btn').addEventListener('click', async () => {
+    const email = document.getElementById('forgot-email').value.trim();
+    const errEl = document.getElementById('forgot-error');
+    const btn   = document.getElementById('forgot-btn');
+    errEl.textContent = '';
+
+    if (!email) { errEl.textContent = 'Please enter your email address.'; return; }
+
+    btn.disabled    = true;
+    btn.textContent = 'Sending…';
+    try {
+        await fetch(`${GOTRUE}/recover`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        errEl.style.color   = '#2a9d8f';
+        errEl.textContent   = 'Reset link sent! Check your email.';
+        btn.textContent     = 'Sent';
+    } catch (e) {
+        errEl.style.color   = '#e63946';
+        errEl.textContent   = 'Could not send reset email. Try again.';
+        btn.disabled    = false;
+        btn.textContent = 'Send reset link';
+    }
 });
 
 // ── Login form ────────────────────────────────────────────────────────────────
