@@ -422,5 +422,210 @@
     "sites": ["National Galleries of Scotland", "National Monument of Scotland", "Lawnmarket", "The Royal Yacht Britannia"],
     "pictures": "Edinburgh_23"
   }
-]
+  {
+    "name": "Langevag",
+    "latitude": 62.437,
+    "longitude": 6.19,
+    "dates": ["31/08/2023", "01/09/2023"],
+    "attenders": ["Papa"],
+    "sites": ["Bomlo"],
+    "pictures": "Bomlo_23"
+  },
+  {
+    "name": "York",
+    "latitude": 53.959,
+    "longitude": -1.0815,
+    "dates": ["24/12/2025", "28/12/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Clifford's Tower",
+      "Shambles",
+      "York City Walls",
+      "Minster Yard",
+      "York Minster",
+      "JORVIK Viking Centre",
+      "National Railway Museum"
+    ],
+    "pictures": "York_25"
+  },
+  {
+    "name": "Hull",
+    "latitude": 53.7676,
+    "longitude": -0.3274,
+    "dates": ["27/12/2025", "27/12/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["The Deep (oceanarium)", "Hull Minster"],
+    "pictures": "Hull_25"
+  },
+  {
+    "name": "Leeds",
+    "latitude": 53.8008,
+    "longitude": -1.5491,
+    "dates": ["27/12/2025", "27/12/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Leeds Cathedral",
+      "Leeds Corn Exchange",
+      "Leeds Minster",
+      "Thackray Museum of Medicine"
+    ],
+    "pictures": "Leeds_25"
+  },
+  {
+    "name": "Wrexham",
+    "latitude": 53.046,
+    "longitude": -2.992,
+    "dates": ["11/10/2025", "11/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["St Giles Church", "Miners Monument", "Racecourse Ground(stadium)"],
+    "pictures": "Wrexham_25"
+  },
+  {
+    "name": "Pontcysyllte Aqueduct",
+    "latitude": 52.9706,
+    "longitude": -3.0888,
+    "dates": ["12/10/2025", "12/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Pontcysyllte Aqueduct"],
+    "pictures": "Pontcysyllte_25"
+  },
+  {
+    "name": "Betws-y-Coed",
+    "latitude": 53.0929,
+    "longitude": -3.8015,
+    "dates": ["12/10/2025", "12/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Zip World Betws-y-Coed",
+      "Conwy Valley Railway Museum",
+      "Swallow falls"
+    ],
+    "pictures": "Betws-y-Coed_25"
+  },
+  {
+    "name": "Caernarfon",
+    "latitude": 53.1398,
+    "longitude": -4.2739,
+    "dates": ["13/10/2025", "16/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [],
+    "pictures": "Caernarfon_25"
+  },
+  {
+    "name": "Holy Island",
+    "latitude": 53.307,
+    "longitude": -4.6321,
+    "dates": ["13/10/2025", "13/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Holyhead",
+      "St Cybi’s Church",
+      "Holyhead Breakwater",
+      "Breakwater Country Park",
+      "North Stack Lighthouse",
+      "South Stack Lighthouse"
+    ],
+    "pictures": "HolyIsland_25"
+  },
+  {
+    "name": "Llanfairpwllgwyngyll",
+    "latitude": 53.2215,
+    "longitude": -4.2094,
+    "dates": ["13/10/2025", "13/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch Station"],
+    "pictures": "Llanfairpwllgwyngyll_25"
+  },
+  {
+    "name": "Bethesda",
+    "latitude": 53.181,
+    "longitude": -4.062,
+    "dates": ["14/10/2025", "14/10/2025"],
+    "attenders": ["Papa", "Lesha"],
+    "sites": ["Bethesda town", "Zip World Penrhyn Quarry"],
+    "pictures": "Bethesda_25"
+  },
+  {
+    "name": "Bangor",
+    "latitude": 53.228,
+    "longitude": -4.129,
+    "dates": ["14/10/2025", "14/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Menai Bridge"],
+    "pictures": "Bangor_25"
+  },
+  {
+    "name": "Snowdon",
+    "latitude": 53.0685,
+    "longitude": -4.076,
+    "dates": ["15/10/2025", "15/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Minors' track", "Snowdon summit"],
+    "pictures": "Snowdon_25"
+  },
+  {
+    "name": "Llanberis",
+    "latitude": 53.119,
+    "longitude": -4.127,
+    "dates": ["15/10/2025", "15/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Ceunant Mawr waterfall", "Llyn Padarn"],
+    "pictures": "Llanberis_25"
+  },
+  {
+    "name": "Rhaeadr Fawr",
+    "latitude": 53.249,
+    "longitude": -4.031,
+    "dates": ["16/10/2025", "16/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Rhaeadr Fawr waterfall"],
+    "pictures": "RhaeadrFawr_25"
+  },
+  {
+    "name": "Penrhyn Castle",
+    "latitude": 53.2275,
+    "longitude": -4.0946,
+    "dates": ["16/10/2025", "16/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Penrhyn Castle & Garden"],
+    "pictures": "PenrhynCastle_25"
+  },
+  {
+    "name": "Conwy",
+    "latitude": 53.2808,
+    "longitude": -3.827,
+    "dates": ["17/10/2025", "17/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "The Smallest House In Great Britain",
+      "St Mary’s Church",
+      "Conwy Town Walls",
+      "Conwy Castle",
+      "Conwy Suspension Bridge"
+    ],
+    "pictures": "Conwy_25"
+  },
+  {
+    "name": "Llandudno",
+    "latitude": 53.3241,
+    "longitude": -3.8276,
+    "dates": ["17/10/2025", "17/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "West Shore Beach",
+      "Great Orme",
+      "Llandudno Promenade",
+      "Llandudno Pier"
+    ],
+    "pictures": "Llandudno_25"
+  },
+  {
+    "name": "Blackpool",
+    "latitude": 53.8175,
+    "longitude": -3.0357,
+    "dates": ["18/10/2025", "18/10/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Blackpool Pleasure Beach", "The Blackpool Tower"],
+    "pictures": "Blackpool_25"
+  }
 
