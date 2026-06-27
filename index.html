@@ -842,7 +842,7 @@ logoutBtn.addEventListener('click', () => { clearSession(); showLoginScreen(); }
 if (IS_LOCAL) {
     loginScreen.style.display = 'none';
     fetchJSON('locations.json');
-} else if (!inviteToken) {
+} else if (!activeToken) {
     if (sessionValid()) {
         showApp();
     } else {
