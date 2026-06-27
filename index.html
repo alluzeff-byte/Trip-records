@@ -629,6 +629,7 @@ if (IS_LOCAL) {
     // Skip auth when running locally via Live Server
     showApp(null);
 } else {
+    netlifyIdentity.init();
     netlifyIdentity.on('init',   user => { if (user) showApp(user); else showLogin(); });
     netlifyIdentity.on('login',  user => { netlifyIdentity.close(); showApp(user); });
     netlifyIdentity.on('logout', ()   => showLogin());
