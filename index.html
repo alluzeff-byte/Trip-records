@@ -716,7 +716,8 @@ function getHashParam(key) {
 const inviteToken   = getHashParam('invite_token');
 const recoveryToken = getHashParam('recovery_token');
 const activeToken   = inviteToken || recoveryToken;
-const tokenType     = inviteToken ? 'invite' : 'recovery';
+// Netlify's GoTrue uses "signup" for invite acceptance (not "invite")
+const tokenType     = inviteToken ? 'signup' : 'recovery';
 
 if (activeToken) {
     history.replaceState(null, '', location.pathname);
@@ -744,19 +745,15 @@ document.getElementById('sp-btn').addEventListener('click', async () => {
 
     btn.disabled    = true;
     btn.textContent = 'Setting password…';
-    errEl.style.color = '#888';
-    errEl.textContent = `Verifying… (type=${tokenType}, token ${activeToken.length} chars)`;
+    errEl.style.color = '#e63946';
+    errEl.textContent = '';
     try {
-        // Send type in query string AND in body to cover different GoTrue versions
-        const url  = `${GOTRUE}/verify?type=${encodeURIComponent(tokenType)}&token=${encodeURIComponent(activeToken)}`;
-        const body = JSON.stringify({ type: tokenType, token: activeToken, password: pw });
-        const res  = await fetch(url, {
+        const res = await fetch(`${GOTRUE}/verify`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body
+            body: JSON.stringify({ type: tokenType, token: activeToken, password: pw })
         });
         const data = await res.json();
-        errEl.style.color = '#e63946';
         if (!res.ok) throw new Error(data.error_description || data.msg || JSON.stringify(data));
         storeSession(data, data.email);
         showApp();
