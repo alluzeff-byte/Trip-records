@@ -733,15 +733,24 @@ document.getElementById('sp-btn').addEventListener('click', async () => {
     if (pw.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; return; }
     if (pw !== pw2)    { errEl.textContent = 'Passwords do not match.'; return; }
 
+    if (!activeToken) {
+        errEl.textContent = 'Invite link expired — please ask for a new one.';
+        return;
+    }
+
     btn.disabled    = true;
     btn.textContent = 'Setting password…';
+    // Show debug info while waiting so we can diagnose issues
+    errEl.style.color   = '#888';
+    errEl.textContent   = `Verifying (type=${tokenType}, token ${activeToken.length} chars)…`;
     try {
         const res = await fetch(`${GOTRUE}/verify`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: tokenType, token: activeToken, password: pw })
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ type: tokenType, token: activeToken, password: pw }).toString()
         });
         const data = await res.json();
+        errEl.style.color = '#e63946';
         if (!res.ok) throw new Error(data.error_description || data.msg || 'Could not set password');
         storeSession(data, data.email);
         showApp();
