@@ -424,8 +424,8 @@
   },
   {
     "name": "Langevag",
-    "latitude": 59.779,
-    "longitude": 5.388,
+    "latitude": 59.60215,
+    "longitude": 5.2081,
     "dates": ["31/08/2023", "01/09/2023"],
     "attenders": ["Papa"],
     "sites": ["Bomlo"],
