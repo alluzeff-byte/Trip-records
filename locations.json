@@ -421,7 +421,7 @@
     "attenders": ["Papa"],
     "sites": ["National Galleries of Scotland", "National Monument of Scotland", "Lawnmarket", "The Royal Yacht Britannia"],
     "pictures": "Edinburgh_23"
-  }
+  },
   {
     "name": "Langevag",
     "latitude": 62.437,
@@ -628,4 +628,4 @@
     "sites": ["Blackpool Pleasure Beach", "The Blackpool Tower"],
     "pictures": "Blackpool_25"
   }
-
+]
