@@ -804,5 +804,276 @@
       "Montrose Beach"
     ],
     "pictures": "Montrose_25"
+  },
+  {
+    "name": "Berwick upon Tweed",
+    "latitude": 55.7718,
+    "longitude": -2.0076,
+    "dates": ["14/06/2025", "14/06/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Royal Border Bridge",
+      "Town Hall",
+      "Berwick Town Walls",
+      "Main Guard Museum",
+      "Berwick Beach Cliffs",
+      "Red Cliffs"
+    ],
+    "pictures": "Berwick_25"
+  },
+  {
+    "name": "Cheswick",
+    "latitude": 55.705,
+    "longitude": -1.951,
+    "dates": ["14/06/2025", "15/06/2025"],
+    "attenders": ["Papa", "Lesha"],
+    "sites": ["Cheswick Sands"],
+    "pictures": "Cheswick_25"
+  },
+  {
+    "name": "Farne Islands",
+    "latitude": 55.631,
+    "longitude": -1.621,
+    "dates": ["15/06/2025", "15/06/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Seahouses", "Farne Islands"],
+    "pictures": "FarneIslands_25"
+  },
+  {
+    "name": "Bamburgh",
+    "latitude": 55.607,
+    "longitude": -1.7167,
+    "dates": ["15/06/2025", "15/06/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Bamburgh Castle", "Bamburgh Beach"],
+    "pictures": "Bamburgh_25"
+  },
+  {
+    "name": "Abbotsford",
+    "latitude": 55.5983,
+    "longitude": -2.7137,
+    "dates": ["16/06/2025", "16/06/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Abbotsford the home of Sir Walter Scott"],
+    "pictures": "Abbotsford_25"
+  },
+  {
+    "name": "Manchester",
+    "latitude": 53.4808,
+    "longitude": -2.2426,
+    "dates": ["24/07/2025", "27/07/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Science and Industry Museum",
+      "Albert Square",
+      "John Rylands Library",
+      "Northern Quarter",
+      "Castlefield Viaduct",
+      "Old Trafford",
+      "IWM North",
+      "The Vimto Park",
+      "Manchester Cathedral",
+      "National Football Museum",
+      "Piccadilly Gardens",
+      "Ancoats",
+      "Mayfield Park",
+      "Manchester Museum"
+    ],
+    "pictures": "Manchester_25"
+  },
+  {
+    "name": "The Hague",
+    "latitude": 52.0705,
+    "longitude": 4.3007,
+    "dates": ["10/07/2025", "11/07/2025"],
+    "attenders": ["Papa"],
+    "sites": ["Binnenhof", "Scheveningen strand", "Peace Palace"],
+    "pictures": "Hague_25"
+  },
+  {
+    "name": "Leiden",
+    "latitude": 52.1601,
+    "longitude": 4.497,
+    "dates": ["12/07/2025", "12/07/2025"],
+    "attenders": ["Papa"],
+    "sites": ["National Museum of Ethnology", "Rembrandt statue"],
+    "pictures": "Leiden_25"
+  },
+  {
+    "name": "Noordwijk",
+    "latitude": 52.2425,
+    "longitude": 4.4447,
+    "dates": ["12/07/2025", "12/07/2025"],
+    "attenders": ["Papa"],
+    "sites": ["Strand Noordwijk Aan Zee"],
+    "pictures": "Noordwijk_25"
+  },
+  {
+    "name": "Haarlem",
+    "latitude": 52.3874,
+    "longitude": 4.6462,
+    "dates": ["13/07/2025", "13/07/2025"],
+    "attenders": ["Papa"],
+    "sites": [
+      "Grote Markt",
+      "De Koepel",
+      "Frans Hals Museum",
+      "Pavilion Welgelegen",
+      "Haarlemmerhout",
+      "Saint Bavo of Ghent Catholic Cathedral"
+    ],
+    "pictures": "Haarlem_25"
+  },
+  {
+    "name": "Utrecht",
+    "latitude": 52.0907,
+    "longitude": 5.1214,
+    "dates": ["22/03/2025", "22/03/2025"],
+    "attenders": ["Papa"],
+    "sites": ["Dom Tower", "Oudegracht canal", "Miffy's Traffic Light"],
+    "pictures": "Utrecht_25"
+  },
+  {
+    "name": "Verlengde Paltzerweg",
+    "latitude": 52.173,
+    "longitude": 5.291,
+    "dates": ["22/03/2025", "22/03/2025"],
+    "attenders": ["Papa"],
+    "sites": ["Nationaal Militair Museum"],
+    "pictures": "Verlengde_25"
+  },
+  {
+    "name": "Woerden",
+    "latitude": 52.085,
+    "longitude": 4.883,
+    "dates": ["23/03/2025", "23/03/2025"],
+    "attenders": ["Papa"],
+    "sites": ["Castle Woerden"],
+    "pictures": "Woerden_25"
+  },
+  {
+    "name": "Gouda",
+    "latitude": 52.0116,
+    "longitude": 4.7105,
+    "dates": ["23/03/2025", "23/03/2025"],
+    "attenders": ["Papa"],
+    "sites": ["Stadhuis van Gouda", "Van Bergen Ijzendoornpark"],
+    "pictures": "Gouda_25"
+  },
+  {
+    "name": "Edinburgh",
+    "latitude": 55.9533,
+    "longitude": -3.1883,
+    "dates": ["02/06/2025", "02/06/2025"],
+    "attenders": ["Papa"],
+    "sites": ["Castle Street", "The Writer's Museum"],
+    "pictures": "Edinburgh_25"
+  },
+  {
+    "name": "Cupar",
+    "latitude": 56.3185,
+    "longitude": -3.0124,
+    "dates": ["11/04/2025", "11/04/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Cupar St Johns & Dairsie United Parish Church"],
+    "pictures": "Cupar_25"
+  },
+  {
+    "name": "Bow of Fife",
+    "latitude": 56.312,
+    "longitude": -3.063,
+    "dates": ["11/04/2025", "11/04/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["The Scottish Deer Centre"],
+    "pictures": "BowOfFife_25"
+  },
+  {
+    "name": "Dairsie Castle",
+    "latitude": 56.339,
+    "longitude": -2.808,
+    "dates": ["11/04/2025", "11/04/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Dairsie Castle"],
+    "pictures": "DairsieCastle_25"
+  },
+  {
+    "name": "Leuchars",
+    "latitude": 56.378,
+    "longitude": -2.894,
+    "dates": ["11/04/2025", "11/04/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["St. Athernase Church", "Airstrip"],
+    "pictures": "Leuchars_25"
+  },
+  {
+    "name": "St Andrews",
+    "latitude": 56.3398,
+    "longitude": -2.7967,
+    "dates": ["12/04/2025", "12/04/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "St Andrews Castle",
+      "University of St Andrews",
+      "St Andrews Cathedral",
+      "West Port Gate",
+      "St Andrews Museum",
+      "St Andrews Aquarium",
+      "West Sands Beach"
+    ],
+    "pictures": "StAndrews_25"
+  },
+  {
+    "name": "Anstruther",
+    "latitude": 56.2238,
+    "longitude": -2.7008,
+    "dates": ["12/04/2025", "12/04/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Anstruther Harbour"],
+    "pictures": "Anstruther_25"
+  },
+  {
+    "name": "Kirkcaldy",
+    "latitude": 56.1107,
+    "longitude": -3.1618,
+    "dates": ["13/04/2025", "13/04/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Sea Beams",
+      "Dysart Harbour",
+      "Ravenscraig Park",
+      "Coastal Turret",
+      "Ravenscraig Castle",
+      "Kirkcaldy Town House",
+      "Kirkcaldy Galleries"
+    ],
+    "pictures": "Kirkcaldy_25"
+  },
+  {
+    "name": "Crathes Castle",
+    "latitude": 57.0606,
+    "longitude": -2.4432,
+    "dates": ["25/05/2025", "25/05/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Crathes Castle"],
+    "pictures": "CrathesCastle_25"
+  },
+  {
+    "name": "Alesund",
+    "latitude": 62.4722,
+    "longitude": 6.1549,
+    "dates": ["18/03/2025", "18/03/2025"],
+    "attenders": ["Papa"],
+    "sites": ["Aksla Viewpoint", "Brosundet", "Atlantic Sea-Park"],
+    "pictures": "Alesund_25"
+  },
+  {
+    "name": "London",
+    "latitude": 51.5074,
+    "longitude": -0.1278,
+    "dates": ["13/01/2025", "16/01/2025"],
+    "attenders": ["Papa"],
+    "sites": ["Shell building", "Waterloo", "Westminster"],
+    "pictures": "London_25"
   }
 ]
+
