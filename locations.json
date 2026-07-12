@@ -1074,6 +1074,181 @@
     "attenders": ["Papa"],
     "sites": ["Shell building", "Waterloo", "Westminster"],
     "pictures": "London_25"
+  },
+  {
+    "name": "Golspie",
+    "latitude": 57.98397,
+    "longitude": -3.94468,
+    "dates": ["04/07/2026", "04/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Dunrobin Castle"],
+    "pictures": "Golspie_26"
+  },
+  {
+    "name": "Brora",
+    "latitude": null,
+    "longitude": null,
+    "dates": ["04/07/2026", "05/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Brora Escape", "Brora Beach"],
+    "pictures": "Brora_26"
+  },
+  {
+    "name": "Wick",
+    "latitude": null,
+    "longitude": null,
+    "dates": ["05/07/2026", "05/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Castle Of Old Wick",
+      "Brig O' Stack",
+      "The Trinkie",
+      "Black Stairs",
+      "The Wick Heritage Museum",
+      "Ebenezer Place",
+      "North Cove"
+    ],
+    "pictures": "Wick_26"
+  },
+  {
+    "name": "Duncansby",
+    "latitude": 58.6376,
+    "longitude": -3.032938,
+    "dates": ["06/07/2026", "06/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Duncansby Stacks", "Duncansby Head Lighthouse"],
+    "pictures": "Duncansby_26"
+  },
+  {
+    "name": "John o’ Groats",
+    "latitude": 58.64466,
+    "longitude": -3.07006,
+    "dates": ["06/07/2026", "06/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["John o’ Groats Signpost"],
+    "pictures": "JohnoGroats_26"
+  },
+  {
+    "name": "Thurso",
+    "latitude": null,
+    "longitude": null,
+    "dates": ["06/07/2026", "11/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Old St. Peter’s Church",
+      "North Sea Pier",
+      "Thurso Beach",
+      "Victoria Walk",
+      "St. Peter’s and St. Andrew’s Church"
+    ],
+    "pictures": "Thurso_26"
+  },
+  {
+    "name": "Stromness",
+    "latitude": null,
+    "longitude": null,
+    "dates": ["07/07/2026", "07/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Old Man of Hoy",
+      "Pier Arts Centre",
+      "Stromness Museum",
+      "Links Battery"
+    ],
+    "pictures": "Stromness_26"
+  },
+  {
+    "name": "Stenness",
+    "latitude": 58.9943,
+    "longitude": -3.20654,
+    "dates": ["07/07/2026", "07/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Standing Stones of Stenness", "Watch Stone"],
+    "pictures": "Stenness_26"
+  },
+  {
+    "name": "Kirkwall",
+    "latitude": null,
+    "longitude": null,
+    "dates": ["07/07/2026", "11/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["The Orkney Museum", "St Magnus Cathedral"],
+    "pictures": "Kirkwall_26"
+  },
+  {
+    "name": "Skaill",
+    "latitude": 59.048436,
+    "longitude": -3.33909,
+    "dates": ["08/07/2026", "08/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Skara Brae Prehistoric Village",
+      "Skaill House",
+      "Skaill Beach"
+    ],
+    "pictures": "Skaill_26"
+  },
+  {
+    "name": "Westrey",
+    "latitude": 59.32273,
+    "longitude": -3.0086,
+    "dates": ["09/07/2026", "09/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Pierowall",
+      "Westray Heritage Trust",
+      "Noltland Castle",
+      "Noup Head Lighthouse",
+      "The Scaun",
+      "Westray Airport"
+    ],
+    "pictures": "Westrey_26"
+  },
+  {
+    "name": "Lyness",
+    "latitude": 58.8334,
+    "longitude": -3.196597,
+    "dates": ["10/07/2026", "10/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Scapa Flow Museum"],
+    "pictures": "Lyness_26"
+  },
+  {
+    "name": "Scapa",
+    "latitude": 58.96235,
+    "longitude": -2.97294,
+    "dates": ["10/07/2026", "10/07/2026"],
+    "attenders": ["Papa"],
+    "sites": ["Scapa Beach"],
+    "pictures": "Scapa_26"
+  },
+  {
+    "name": "Lambholm",
+    "latitude": 58.8897,
+    "longitude": -2.893829,
+    "dates": ["10/07/2026", "10/07/2026"],
+    "attenders": ["Papa"],
+    "sites": ["Churchill Barriers", "Italian Chapel"],
+    "pictures": "Lambholm_26"
+  },
+  {
+    "name": "Dunnet Head",
+    "latitude": 58.6711,
+    "longitude": -3.37661,
+    "dates": ["11/07/2026", "11/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Dunnet Head Lighthouse"],
+    "pictures": "DunnetHead_26"
+  },
+  {
+    "name": "Inverness",
+    "latitude": 57.4778,
+    "longitude": -4.2247,
+    "dates": ["11/07/2026", "11/07/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Inverness Castle", "High Street", "Inverness War Memorial"],
+    "pictures": "Inverness_26"
   }
 ]
+
 
