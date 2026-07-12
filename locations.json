@@ -1086,8 +1086,8 @@
   },
   {
     "name": "Brora",
-    "latitude": null,
-    "longitude": null,
+    "latitude": 58.0107,
+    "longitude": -3.8525,
     "dates": ["04/07/2026", "05/07/2026"],
     "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
     "sites": ["Brora Escape", "Brora Beach"],
@@ -1095,8 +1095,8 @@
   },
   {
     "name": "Wick",
-    "latitude": null,
-    "longitude": null,
+    "latitude": 58.4391,
+    "longitude": -3.0937,
     "dates": ["05/07/2026", "05/07/2026"],
     "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
     "sites": [
@@ -1130,8 +1130,8 @@
   },
   {
     "name": "Thurso",
-    "latitude": null,
-    "longitude": null,
+    "latitude": 58.5927,
+    "longitude": -3.5259,
     "dates": ["06/07/2026", "11/07/2026"],
     "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
     "sites": [
@@ -1145,8 +1145,8 @@
   },
   {
     "name": "Stromness",
-    "latitude": null,
-    "longitude": null,
+    "latitude": 58.9648,
+    "longitude": -3.2967,
     "dates": ["07/07/2026", "07/07/2026"],
     "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
     "sites": [
@@ -1168,8 +1168,8 @@
   },
   {
     "name": "Kirkwall",
-    "latitude": null,
-    "longitude": null,
+    "latitude": 58.9847,
+    "longitude": -2.9605,
     "dates": ["07/07/2026", "11/07/2026"],
     "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
     "sites": ["The Orkney Museum", "St Magnus Cathedral"],
@@ -1250,5 +1250,4 @@
     "pictures": "Inverness_26"
   }
 ]
-
 
