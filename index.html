@@ -20,67 +20,30 @@
 
         /* ── Login screen ────────────────────────────────────────────────── */
         #login-screen {
-            position: fixed;
-            inset: 0;
+            position: fixed; inset: 0;
             background: #1a1a2e;
             z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
         #login-box {
-            background: #fff;
-            border-radius: 16px;
-            padding: 40px 36px 36px;
-            max-width: 380px;
-            width: 100%;
+            background: #fff; border-radius: 16px;
+            padding: 40px 36px 36px; max-width: 380px; width: 100%;
             box-shadow: 0 24px 64px rgba(0,0,0,0.5);
         }
-        #login-box h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1a1a2e;
-            text-align: center;
-            margin-bottom: 6px;
-        }
-        .login-subtitle {
-            color: #888;
-            font-size: 13.5px;
-            text-align: center;
-            line-height: 1.5;
-            margin-bottom: 24px;
-        }
+        #login-box h1 { font-size: 24px; font-weight: 700; color: #1a1a2e; text-align: center; margin-bottom: 6px; }
+        .login-subtitle { color: #888; font-size: 13.5px; text-align: center; line-height: 1.5; margin-bottom: 24px; }
         .form-field {
-            width: 100%;
-            padding: 11px 14px;
-            border: 1.5px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-            margin-bottom: 10px;
-            transition: border-color 0.15s;
-            display: block;
+            width: 100%; padding: 11px 14px;
+            border: 1.5px solid #ddd; border-radius: 8px;
+            font-size: 14px; outline: none; margin-bottom: 10px;
+            transition: border-color 0.15s; display: block;
         }
         .form-field:focus { border-color: #4361ee; }
-        .form-error {
-            color: #e63946;
-            font-size: 12.5px;
-            min-height: 18px;
-            margin-bottom: 10px;
-            text-align: center;
-        }
+        .form-error { color: #e63946; font-size: 12.5px; min-height: 18px; margin-bottom: 10px; text-align: center; }
         .form-btn {
-            background: #4361ee;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 13px 0;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.15s;
-            margin-top: 4px;
+            background: #4361ee; color: #fff; border: none; border-radius: 8px;
+            padding: 13px 0; font-size: 15px; font-weight: 600;
+            cursor: pointer; width: 100%; transition: background 0.15s; margin-top: 4px;
         }
         .form-btn:hover:not(:disabled) { background: #3451d1; }
         .form-btn:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -88,37 +51,95 @@
         /* ── Map ─────────────────────────────────────────────────────────── */
         #map { width: 100%; height: 100vh; }
 
+        /* ── Side menu ───────────────────────────────────────────────────── */
+        #side-trigger {
+            position: fixed; left: 0; top: 0; bottom: 0; width: 10px;
+            z-index: 1100;
+            background: linear-gradient(to right, rgba(67,97,238,0.35), transparent);
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        #side-trigger:hover {
+            background: linear-gradient(to right, rgba(67,97,238,0.65), transparent);
+        }
+        #side-menu {
+            position: fixed; left: -270px; top: 0; bottom: 0; width: 260px;
+            background: rgba(18, 18, 38, 0.96);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255,255,255,0.07);
+            box-shadow: 4px 0 24px rgba(0,0,0,0.45);
+            z-index: 1099;
+            transition: left 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 28px 20px 20px;
+            overflow-y: auto;
+            display: flex; flex-direction: column; gap: 28px;
+        }
+        #side-menu.open { left: 0; }
+
+        .menu-header {
+            font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+            text-transform: uppercase; color: rgba(255,255,255,0.35);
+        }
+        .menu-section { display: flex; flex-direction: column; gap: 12px; }
+        .menu-section-title {
+            font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.5); text-transform: uppercase;
+        }
+
+        /* Toggle switch */
+        .toggle-row {
+            display: flex; align-items: center;
+            justify-content: space-between; cursor: pointer;
+            padding: 4px 0;
+        }
+        .toggle-text { font-size: 14px; color: #ccc; user-select: none; }
+        .toggle-switch { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+        .toggle-track {
+            position: absolute; inset: 0;
+            background: #3a3a5a; border-radius: 22px;
+            transition: background 0.2s;
+        }
+        .toggle-track::after {
+            content: ''; position: absolute;
+            left: 3px; top: 3px; width: 16px; height: 16px;
+            background: #fff; border-radius: 50%;
+            transition: left 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .toggle-switch input:checked + .toggle-track { background: #4361ee; }
+        .toggle-switch input:checked + .toggle-track::after { left: 21px; }
+
+        /* Year checkboxes */
+        .year-list { display: flex; flex-direction: column; gap: 2px; }
+        .year-row {
+            display: flex; align-items: center; gap: 10px;
+            padding: 6px 8px; border-radius: 6px; cursor: pointer;
+            transition: background 0.12s;
+        }
+        .year-row:hover { background: rgba(255,255,255,0.06); }
+        .year-row input[type="checkbox"] {
+            width: 15px; height: 15px; cursor: pointer;
+            accent-color: #4361ee; flex-shrink: 0;
+        }
+        .year-row span { font-size: 14px; color: #ccc; user-select: none; }
+
         /* ── Logout button (floating) ─────────────────────────────────────── */
         #logout-float {
-            position: fixed;
-            top: 12px;
-            right: 12px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            position: fixed; top: 12px; right: 12px;
+            z-index: 1000; display: flex; align-items: center; gap: 8px;
         }
         #user-info {
-            font-size: 11.5px;
-            color: rgba(255,255,255,0.6);
-            background: rgba(26,26,46,0.7);
-            padding: 5px 10px;
-            border-radius: 6px;
-            backdrop-filter: blur(4px);
-            max-width: 180px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            font-size: 11.5px; color: rgba(255,255,255,0.6);
+            background: rgba(26,26,46,0.7); padding: 5px 10px;
+            border-radius: 6px; backdrop-filter: blur(4px);
+            max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
         #logout-btn {
-            background: rgba(26,26,46,0.82);
-            color: #ccc;
+            background: rgba(26,26,46,0.82); color: #ccc;
             border: 1px solid rgba(255,255,255,0.14);
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 12px;
-            cursor: pointer;
-            backdrop-filter: blur(4px);
+            padding: 6px 14px; border-radius: 6px; font-size: 12px;
+            cursor: pointer; backdrop-filter: blur(4px);
             transition: background 0.15s, color 0.15s;
         }
         #logout-btn:hover { background: rgba(26,26,46,1); color: #fff; }
@@ -126,62 +147,38 @@
         /* ── Marker labels ───────────────────────────────────────────────── */
         .marker-label {
             background: rgba(255,255,255,0.93) !important;
-            border: none !important;
-            border-radius: 4px !important;
-            padding: 2px 7px !important;
-            font-size: 11.5px !important;
-            font-weight: 600 !important;
-            color: #1a1a2e !important;
+            border: none !important; border-radius: 4px !important;
+            padding: 2px 7px !important; font-size: 11.5px !important;
+            font-weight: 600 !important; color: #1a1a2e !important;
             box-shadow: 0 1px 5px rgba(0,0,0,0.22) !important;
-            white-space: nowrap !important;
-            pointer-events: none !important;
+            white-space: nowrap !important; pointer-events: none !important;
         }
         .marker-label::before { display: none !important; }
 
         /* ── Trip picker popup ───────────────────────────────────────────── */
         .trip-picker { min-width: 190px; padding: 2px 0; }
         .picker-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            padding: 0 4px 8px;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 4px;
+            font-size: 12px; font-weight: 700; color: #888;
+            text-transform: uppercase; letter-spacing: 0.6px;
+            padding: 0 4px 8px; border-bottom: 1px solid #eee; margin-bottom: 4px;
         }
         .trip-pick {
-            padding: 8px 4px;
-            font-size: 13.5px;
-            color: #1a1a2e;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.1s, color 0.1s;
+            padding: 8px 4px; font-size: 13.5px; color: #1a1a2e;
+            cursor: pointer; border-radius: 5px; transition: background 0.1s, color 0.1s;
         }
         .trip-pick:hover { background: #f0f2ff; color: #4361ee; }
 
-        /* ── Modal overlay ───────────────────────────────────────────────── */
+        /* ── Modal ───────────────────────────────────────────────────────── */
         #modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.8); z-index: 2000;
+            justify-content: center; align-items: center; padding: 16px;
         }
         #modal.active { display: flex; }
-
         #modal-box {
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            width: 100%;
-            max-width: min(96vw, 960px);
-            max-height: 96vh;
-            display: flex;
-            flex-direction: column;
+            background: #fff; border-radius: 12px; overflow: hidden;
+            width: 100%; max-width: min(96vw, 960px); max-height: 96vh;
+            display: flex; flex-direction: column;
             box-shadow: 0 24px 64px rgba(0,0,0,0.55);
             animation: pop-in 0.17s ease;
         }
@@ -189,38 +186,25 @@
             from { transform: scale(0.91); opacity: 0; }
             to   { transform: scale(1);    opacity: 1; }
         }
-
         #modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 22px;
-            border-bottom: 1px solid #eee;
-            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 15px 22px; border-bottom: 1px solid #eee; flex-shrink: 0;
         }
         #modal-name { font-size: 20px; font-weight: 700; color: #1a1a2e; }
         #modal-close {
-            background: #f0f0f0;
-            border: none;
-            border-radius: 50%;
-            width: 32px; height: 32px;
-            font-size: 16px;
-            cursor: pointer;
+            background: #f0f0f0; border: none; border-radius: 50%;
+            width: 32px; height: 32px; font-size: 16px; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            color: #555; flex-shrink: 0;
-            transition: background 0.15s;
+            color: #555; flex-shrink: 0; transition: background 0.15s;
         }
         #modal-close:hover { background: #ddd; color: #111; }
-
         #modal-body { overflow-y: auto; flex: 1; }
 
         /* ── Gallery ─────────────────────────────────────────────────────── */
         #gallery-wrap { background: #111; display: flex; flex-direction: column; }
         #gallery-stage { display: flex; align-items: center; min-height: 320px; }
-
         .gallery-nav {
-            background: rgba(255,255,255,0.1);
-            border: none; color: #fff; font-size: 32px;
+            background: rgba(255,255,255,0.1); border: none; color: #fff; font-size: 32px;
             width: 48px; flex-shrink: 0; align-self: stretch;
             cursor: pointer; transition: background 0.15s;
             display: flex; align-items: center; justify-content: center;
@@ -228,54 +212,28 @@
         .gallery-nav:hover:not(:disabled) { background: rgba(255,255,255,0.25); }
         .gallery-nav:disabled { opacity: 0.15; cursor: default; }
         .gallery-nav.hidden { visibility: hidden; }
-
         #gallery-view {
             flex: 1; display: flex; align-items: center; justify-content: center;
             min-height: 320px; padding: 14px 0;
         }
-        #gallery-img {
-            display: none; max-width: 100%; max-height: 68vh;
-            object-fit: contain; border-radius: 2px;
-        }
+        #gallery-img { display: none; max-width: 100%; max-height: 68vh; object-fit: contain; border-radius: 2px; }
         #gallery-loading { color: rgba(255,255,255,0.5); font-size: 13px; }
-        #gallery-error {
-            display: none; color: #ff8080; font-size: 13px;
-            text-align: center; padding: 0 20px; line-height: 1.6;
-        }
-        #gallery-counter {
-            text-align: center; color: rgba(255,255,255,0.45);
-            font-size: 11.5px; padding: 6px 0 10px; letter-spacing: 0.5px;
-        }
+        #gallery-error { display: none; color: #ff8080; font-size: 13px; text-align: center; padding: 0 20px; line-height: 1.6; }
+        #gallery-counter { text-align: center; color: rgba(255,255,255,0.45); font-size: 11.5px; padding: 6px 0 10px; letter-spacing: 0.5px; }
         #gallery-counter:empty { padding: 0; }
 
         /* ── Info section ────────────────────────────────────────────────── */
         #modal-info { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 18px; }
-        .info-label {
-            display: block; font-size: 10.5px; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.9px;
-            color: #aaa; margin-bottom: 6px;
-        }
+        .info-label { display: block; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.9px; color: #aaa; margin-bottom: 6px; }
         #modal-dates-val { font-size: 17px; font-weight: 700; color: #1a1a2e; }
         #modal-dates-val.empty { color: #ccc; font-size: 15px; font-weight: 400; }
-
         .info-list { list-style: none; display: flex; flex-direction: column; }
-        .info-list li {
-            padding: 7px 0; font-size: 13.5px; color: #333;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex; align-items: center; gap: 8px;
-        }
+        .info-list li { padding: 7px 0; font-size: 13.5px; color: #333; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 8px; }
         .info-list li:last-child { border-bottom: none; }
         .info-list li.empty { color: #bbb; font-style: italic; }
-
-        #modal-sites-list li::before {
-            content: ''; width: 6px; height: 6px;
-            border-radius: 50%; background: #2a9d8f; flex-shrink: 0;
-        }
+        #modal-sites-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #2a9d8f; flex-shrink: 0; }
         #modal-sites-list li.empty::before { background: #ddd; }
-        #modal-attenders-list li::before {
-            content: ''; width: 6px; height: 6px;
-            border-radius: 50%; background: #4361ee; flex-shrink: 0;
-        }
+        #modal-attenders-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4361ee; flex-shrink: 0; }
         #modal-attenders-list li.empty::before { background: #ddd; }
     </style>
 </head>
@@ -285,7 +243,6 @@
 <div id="login-screen">
     <div id="login-box">
         <h1>Trip Records</h1>
-
         <div id="login-view">
             <p class="login-subtitle">This is a private family album.<br>Please log in to continue.</p>
             <input class="form-field" type="email"    id="login-email"    placeholder="Email address" autocomplete="email" />
@@ -296,7 +253,6 @@
                 <a href="#" id="forgot-link" style="font-size:13px;color:#4361ee;text-decoration:none">Forgot password?</a>
             </p>
         </div>
-
         <div id="forgot-view" style="display:none">
             <p class="login-subtitle">Enter your email and we'll send a password reset link.</p>
             <input class="form-field" type="email" id="forgot-email" placeholder="Email address" autocomplete="email" />
@@ -306,7 +262,6 @@
                 <a href="#" id="back-to-login" style="font-size:13px;color:#4361ee;text-decoration:none">&larr; Back to log in</a>
             </p>
         </div>
-
         <div id="invite-view" style="display:none">
             <p class="login-subtitle" id="sp-subtitle">Choose a password to get started.</p>
             <input class="form-field" type="password" id="sp-password" placeholder="New password (min 6 characters)" />
@@ -316,6 +271,28 @@
         </div>
     </div>
 </div>
+
+<!-- ── Side panel ─────────────────────────────────────────────────────────── -->
+<div id="side-trigger"></div>
+<nav id="side-menu" aria-label="Map controls">
+    <div class="menu-header">Map Controls</div>
+
+    <div class="menu-section">
+        <div class="menu-section-title">Labels</div>
+        <label class="toggle-row">
+            <span class="toggle-text">Show labels</span>
+            <div class="toggle-switch">
+                <input type="checkbox" id="labels-toggle" checked />
+                <span class="toggle-track"></span>
+            </div>
+        </label>
+    </div>
+
+    <div class="menu-section">
+        <div class="menu-section-title">Years</div>
+        <div id="year-filters" class="year-list"></div>
+    </div>
+</nav>
 
 <!-- ── Floating logout ────────────────────────────────────────────────────── -->
 <div id="logout-float">
@@ -374,11 +351,87 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19
 }).addTo(map);
 
-let activeMarkers = [];
-const BASE_STYLE = {
-    radius: 9, fillColor: '#4361ee', color: '#ffffff',
-    weight: 2.5, opacity: 1, fillOpacity: 0.88
-};
+const BASE_STYLE = { radius: 9, fillColor: '#4361ee', color: '#ffffff', weight: 2.5, opacity: 1, fillOpacity: 0.88 };
+
+// ── Side menu hover ───────────────────────────────────────────────────────────
+const sideTrigger = document.getElementById('side-trigger');
+const sideMenu    = document.getElementById('side-menu');
+let menuCloseTimer;
+
+function openSideMenu()  { clearTimeout(menuCloseTimer); sideMenu.classList.add('open'); }
+function closeSideMenu() { menuCloseTimer = setTimeout(() => sideMenu.classList.remove('open'), 180); }
+
+sideTrigger.addEventListener('mouseenter', openSideMenu);
+sideTrigger.addEventListener('mouseleave', closeSideMenu);
+sideMenu.addEventListener('mouseenter', openSideMenu);
+sideMenu.addEventListener('mouseleave', closeSideMenu);
+
+// ── Filter state ──────────────────────────────────────────────────────────────
+let labelsOn    = true;
+let activeYears = new Set();
+let allGroups   = []; // { lat, lng, items, marker, name }
+
+function getEntryYear(entry) {
+    const d = entry.dates && entry.dates[0];
+    if (!d) return null;
+    const parts = String(d).split('/');
+    return parts.length === 3 ? parseInt(parts[2], 10) : null;
+}
+
+function visibleItems(items) {
+    return items.filter(e => {
+        const y = getEntryYear(e);
+        return y === null || activeYears.has(y);
+    });
+}
+
+function updateGroupTooltip(group) {
+    const visible = visibleItems(group.items);
+    const label   = visible.length > 1 ? `${group.name} (${visible.length})` : group.name;
+    group.marker.unbindTooltip();
+    group.marker.bindTooltip(label, {
+        permanent: labelsOn, direction: 'right',
+        offset: [10, 0], className: 'marker-label'
+    });
+}
+
+function applyFilters() {
+    allGroups.forEach(group => {
+        const vis = visibleItems(group.items);
+        if (vis.length === 0) {
+            group.marker.remove();
+        } else {
+            group.marker.addTo(map);
+            updateGroupTooltip(group);
+        }
+    });
+}
+
+// ── Labels toggle ─────────────────────────────────────────────────────────────
+document.getElementById('labels-toggle').addEventListener('change', function () {
+    labelsOn = this.checked;
+    allGroups.forEach(updateGroupTooltip);
+});
+
+// ── Year filters ──────────────────────────────────────────────────────────────
+function buildYearFilters(years) {
+    const container = document.getElementById('year-filters');
+    container.innerHTML = '';
+    years.forEach(year => {
+        const label = document.createElement('label');
+        label.className = 'year-row';
+        label.innerHTML = `
+            <input type="checkbox" class="year-cb" value="${year}" checked />
+            <span>${year}</span>`;
+        container.appendChild(label);
+    });
+    container.addEventListener('change', () => {
+        activeYears = new Set(
+            [...container.querySelectorAll('.year-cb:checked')].map(cb => parseInt(cb.value, 10))
+        );
+        applyFilters();
+    });
+}
 
 // ── Folder image cache ───────────────────────────────────────────────────────
 const folderImageCache = new Map();
@@ -389,7 +442,6 @@ async function fetchFolderImages(folders) {
         const name = folder.trim();
         if (!name) continue;
         const key = name.toLowerCase();
-
         if (!folderImageCache.has(key)) {
             try {
                 const res = await fetch(GITHUB_API_IMAGES + encodeURIComponent(name));
@@ -399,17 +451,13 @@ async function fetchFolderImages(folders) {
                     folderImageCache.set(key, { error: `GitHub API ${res.status}: ${msg}` });
                 } else {
                     const files = await res.json();
-                    const imgUrls = files
+                    folderImageCache.set(key, files
                         .filter(f => f.type === 'file' && /\.(jpe?g|png|gif|webp|avif)$/i.test(f.name))
                         .sort((a, b) => a.name.localeCompare(b.name))
-                        .map(f => f.download_url);
-                    folderImageCache.set(key, imgUrls);
+                        .map(f => f.download_url));
                 }
-            } catch (err) {
-                folderImageCache.set(key, { error: err.message });
-            }
+            } catch (err) { folderImageCache.set(key, { error: err.message }); }
         }
-
         const cached = folderImageCache.get(key);
         if (Array.isArray(cached)) urls.push(...cached);
     }
@@ -422,9 +470,7 @@ function parseDate(str) {
     if (parts.length !== 3) return str;
     const [d, m, y] = parts.map(Number);
     if (!d || !m || !y) return str;
-    return new Date(y, m - 1, d).toLocaleDateString('en-GB', {
-        day: 'numeric', month: 'short', year: 'numeric'
-    });
+    return new Date(y, m - 1, d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
 function formatDates(dates) {
@@ -435,9 +481,7 @@ function formatDates(dates) {
 }
 
 // ── Gallery ──────────────────────────────────────────────────────────────────
-let galleryPics  = [];
-let galleryIdx   = 0;
-let galleryGenId = 0;
+let galleryPics = [], galleryIdx = 0, galleryGenId = 0;
 
 const galleryImg     = document.getElementById('gallery-img');
 const galleryView    = document.getElementById('gallery-view');
@@ -448,42 +492,22 @@ const galleryPrev    = document.getElementById('gallery-prev');
 const galleryNext    = document.getElementById('gallery-next');
 
 function resetGallery() {
-    galleryImg.style.display     = 'none';
-    galleryImg.src               = '';
-    galleryError.style.display   = 'none';
-    galleryLoading.style.display = 'none';
-    galleryView.style.display    = 'flex';
+    galleryImg.style.display = 'none'; galleryImg.src = '';
+    galleryError.style.display = 'none'; galleryLoading.style.display = 'none';
+    galleryView.style.display = 'flex';
 }
 
 function showImage(index) {
-    const myId = ++galleryGenId;
-    galleryIdx = index;
+    const myId = ++galleryGenId; galleryIdx = index;
     const src  = galleryPics[index];
-
-    resetGallery();
-    galleryLoading.style.display = 'block';
-
+    resetGallery(); galleryLoading.style.display = 'block';
     const multi = galleryPics.length > 1;
     galleryCounter.textContent = multi ? `${index + 1} / ${galleryPics.length}` : '';
-    galleryPrev.classList.toggle('hidden', !multi);
-    galleryNext.classList.toggle('hidden', !multi);
-    galleryPrev.disabled = index === 0;
-    galleryNext.disabled = index === galleryPics.length - 1;
-
+    galleryPrev.classList.toggle('hidden', !multi); galleryNext.classList.toggle('hidden', !multi);
+    galleryPrev.disabled = index === 0; galleryNext.disabled = index === galleryPics.length - 1;
     const img = new Image();
-    img.onload = () => {
-        if (myId !== galleryGenId) return;
-        galleryLoading.style.display = 'none';
-        galleryImg.src = src;
-        galleryImg.style.display = 'block';
-    };
-    img.onerror = () => {
-        if (myId !== galleryGenId) return;
-        galleryLoading.style.display = 'none';
-        galleryError.innerHTML =
-            'Could not load image.<br><small style="opacity:.6;word-break:break-all">' + src + '</small>';
-        galleryError.style.display = 'block';
-    };
+    img.onload = () => { if (myId !== galleryGenId) return; galleryLoading.style.display = 'none'; galleryImg.src = src; galleryImg.style.display = 'block'; };
+    img.onerror = () => { if (myId !== galleryGenId) return; galleryLoading.style.display = 'none'; galleryError.innerHTML = 'Could not load image.<br><small style="opacity:.6;word-break:break-all">' + src + '</small>'; galleryError.style.display = 'block'; };
     img.src = src;
 }
 
@@ -508,43 +532,28 @@ function fillList(ul, items, emptyText) {
     ul.innerHTML = '';
     const list = Array.isArray(items) ? items.filter(Boolean) : [];
     if (list.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = emptyText;
-        li.className = 'empty';
-        ul.appendChild(li);
+        const li = document.createElement('li'); li.textContent = emptyText; li.className = 'empty'; ul.appendChild(li);
     } else {
-        list.forEach(text => {
-            const li = document.createElement('li');
-            li.textContent = text;
-            ul.appendChild(li);
-        });
+        list.forEach(text => { const li = document.createElement('li'); li.textContent = text; ul.appendChild(li); });
     }
 }
 
 async function openModal(entry) {
     const myGenId = ++galleryGenId;
-
     modalName.textContent = entry.name || '(unnamed)';
     const datesStr = formatDates(entry.dates);
     modalDatesVal.textContent = datesStr || 'Not specified';
     modalDatesVal.className   = datesStr ? '' : 'empty';
-
-    fillList(modalSites,     entry.sites,     'None listed');
+    fillList(modalSites, entry.sites, 'None listed');
     fillList(modalAttenders, entry.attenders, 'None listed');
-
-    galleryPics = [];
-    resetGallery();
+    galleryPics = []; resetGallery();
     galleryLoading.style.display = 'block';
-    galleryPrev.classList.add('hidden');
-    galleryNext.classList.add('hidden');
+    galleryPrev.classList.add('hidden'); galleryNext.classList.add('hidden');
     galleryCounter.textContent = '';
-
     modal.classList.add('active');
     document.getElementById('modal-body').scrollTop = 0;
-
     const pics = await fetchFolderImages(entry.pictures ? [entry.pictures] : []);
     if (myGenId !== galleryGenId) return;
-
     galleryPics = pics;
     if (pics.length === 0) {
         galleryLoading.style.display = 'none';
@@ -553,16 +562,14 @@ async function openModal(entry) {
             ? cached.error
             : entry.pictures ? `No images found in folder "${entry.pictures}".` : 'No image folder specified.';
         galleryError.style.display = 'block';
-    } else {
-        showImage(0);
-    }
+    } else { showImage(0); }
 }
 
 function closeModal() { modal.classList.remove('active'); }
 document.getElementById('modal-close').addEventListener('click', closeModal);
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 
-// ── Trip picker (multiple trips at same location) ─────────────────────────────
+// ── Trip picker ───────────────────────────────────────────────────────────────
 let pickerEntries = [];
 
 document.getElementById('map').addEventListener('click', e => {
@@ -574,10 +581,10 @@ document.getElementById('map').addEventListener('click', e => {
 
 // ── Marker rendering ─────────────────────────────────────────────────────────
 function loadLocations(entries) {
-    activeMarkers.forEach(m => m.remove());
-    activeMarkers = [];
+    allGroups.forEach(g => g.marker.remove());
+    allGroups = [];
 
-    // Group entries by coordinate (rounded to ~1 m precision)
+    // Group entries by coordinate
     const groups = new Map();
     entries.forEach(entry => {
         const lat = parseFloat(entry.latitude);
@@ -588,29 +595,28 @@ function loadLocations(entries) {
         groups.get(key).items.push(entry);
     });
 
-    groups.forEach(({ lat, lng, items }) => {
-        const name  = items[0].name || '(unnamed)';
-        const multi = items.length > 1;
+    // Collect all years for the filter panel
+    const yearSet = new Set();
+    groups.forEach(({ items }) => items.forEach(e => { const y = getEntryYear(e); if (y) yearSet.add(y); }));
+    activeYears = new Set(yearSet);
+    buildYearFilters([...yearSet].sort((a, b) => a - b));
 
+    // Create one marker per coordinate group
+    groups.forEach(({ lat, lng, items }) => {
+        const name   = items[0].name || '(unnamed)';
         const marker = L.circleMarker([lat, lng], { ...BASE_STYLE })
-            .bindTooltip(multi ? `${name} (${items.length})` : name, {
-                permanent: true, direction: 'right',
-                offset: [10, 0], className: 'marker-label'
-            })
+            .bindTooltip(name, { permanent: true, direction: 'right', offset: [10, 0], className: 'marker-label' })
             .addTo(map);
 
-        marker.on('mouseover', function () {
-            this.setStyle({ fillColor: '#e63946', radius: 11 });
-            this.bringToFront();
-        });
-        marker.on('mouseout', function () {
-            this.setStyle({ fillColor: BASE_STYLE.fillColor, radius: BASE_STYLE.radius });
-        });
-        marker.on('click', () => {
-            if (!multi) { openModal(items[0]); return; }
+        marker.on('mouseover', function () { this.setStyle({ fillColor: '#e63946', radius: 11 }); this.bringToFront(); });
+        marker.on('mouseout',  function () { this.setStyle({ fillColor: BASE_STYLE.fillColor, radius: BASE_STYLE.radius }); });
 
-            pickerEntries = items;
-            const rows = items.map((e, i) =>
+        marker.on('click', () => {
+            const vis = visibleItems(items);
+            if (vis.length === 0) return;
+            if (vis.length === 1) { openModal(vis[0]); return; }
+            pickerEntries = vis;
+            const rows = vis.map((e, i) =>
                 `<div class="trip-pick" data-i="${i}">${formatDates(e.dates) || 'Trip ' + (i + 1)}</div>`
             ).join('');
             L.popup({ maxWidth: 260 })
@@ -619,7 +625,7 @@ function loadLocations(entries) {
                 .openOn(map);
         });
 
-        activeMarkers.push(marker);
+        allGroups.push({ lat, lng, items, marker, name });
     });
 }
 
@@ -629,9 +635,7 @@ async function fetchJSON() {
         const res = await fetch('locations.json', { cache: 'no-cache' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         loadLocations(await res.json());
-    } catch (err) {
-        console.error('Could not load locations.json:', err.message);
-    }
+    } catch (err) { console.error('Could not load locations.json:', err.message); }
 }
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
@@ -642,28 +646,20 @@ const userInfo    = document.getElementById('user-info');
 const logoutBtn   = document.getElementById('logout-btn');
 
 function storeSession(data, email) {
-    localStorage.setItem('nf_token',   data.access_token);
-    localStorage.setItem('nf_exp',     String(Date.now() + (data.expires_in || 3600) * 1000));
+    localStorage.setItem('nf_token', data.access_token);
+    localStorage.setItem('nf_exp',   String(Date.now() + (data.expires_in || 3600) * 1000));
     if (data.refresh_token) localStorage.setItem('nf_refresh', data.refresh_token);
     if (email) localStorage.setItem('nf_email', email);
 }
-
-function clearSession() {
-    ['nf_token', 'nf_exp', 'nf_refresh', 'nf_email'].forEach(k => localStorage.removeItem(k));
-}
-
-function sessionValid() {
-    return !!localStorage.getItem('nf_token') &&
-           Date.now() < parseInt(localStorage.getItem('nf_exp') || '0');
-}
+function clearSession() { ['nf_token','nf_exp','nf_refresh','nf_email'].forEach(k => localStorage.removeItem(k)); }
+function sessionValid() { return !!localStorage.getItem('nf_token') && Date.now() < parseInt(localStorage.getItem('nf_exp') || '0'); }
 
 async function tryRefresh() {
     const rt = localStorage.getItem('nf_refresh');
     if (!rt) return false;
     try {
         const res = await fetch(`${GOTRUE}/token`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `grant_type=refresh_token&refresh_token=${encodeURIComponent(rt)}`
         });
         if (!res.ok) return false;
@@ -685,8 +681,8 @@ function showLoginScreen(errMsg) {
     inviteView.style.display  = 'none';
     document.getElementById('forgot-view').style.display = 'none';
     userInfo.textContent = '';
-    activeMarkers.forEach(m => m.remove());
-    activeMarkers = [];
+    allGroups.forEach(g => g.marker.remove());
+    allGroups = [];
     if (errMsg) document.getElementById('login-error').textContent = errMsg;
 }
 
@@ -698,7 +694,6 @@ function getHashParam(key) {
 const inviteToken   = getHashParam('invite_token');
 const recoveryToken = getHashParam('recovery_token');
 const activeToken   = inviteToken || recoveryToken;
-// Netlify GoTrue uses "signup" for invite acceptance (not "invite")
 const tokenType     = inviteToken ? 'signup' : 'recovery';
 
 if (activeToken) {
@@ -711,50 +706,35 @@ if (activeToken) {
 }
 
 document.getElementById('sp-btn').addEventListener('click', async () => {
-    const pw    = document.getElementById('sp-password').value;
-    const pw2   = document.getElementById('sp-confirm').value;
+    const pw = document.getElementById('sp-password').value;
+    const pw2 = document.getElementById('sp-confirm').value;
     const errEl = document.getElementById('sp-error');
     const btn   = document.getElementById('sp-btn');
     errEl.textContent = '';
-
     if (pw.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; return; }
     if (pw !== pw2)    { errEl.textContent = 'Passwords do not match.'; return; }
     if (!activeToken)  { errEl.textContent = 'Invite link expired — please ask for a new one.'; return; }
-
     btn.disabled = true; btn.textContent = 'Setting password…';
     try {
         const res  = await fetch(`${GOTRUE}/verify`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ type: tokenType, token: activeToken, password: pw })
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error_description || data.msg || JSON.stringify(data));
-        storeSession(data, data.email);
-        showApp();
-    } catch (e) {
-        errEl.textContent = e.message;
-        btn.disabled = false; btn.textContent = 'Set password & log in';
-    }
+        storeSession(data, data.email); showApp();
+    } catch (e) { errEl.textContent = e.message; btn.disabled = false; btn.textContent = 'Set password & log in'; }
 });
-
-document.getElementById('sp-confirm').addEventListener('keydown', e => {
-    if (e.key === 'Enter') document.getElementById('sp-btn').click();
-});
+document.getElementById('sp-confirm').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('sp-btn').click(); });
 
 // ── Forgot password ───────────────────────────────────────────────────────────
 const forgotView = document.getElementById('forgot-view');
-
 document.getElementById('forgot-link').addEventListener('click', e => {
-    e.preventDefault();
-    loginView.style.display  = 'none';
-    forgotView.style.display = 'block';
+    e.preventDefault(); loginView.style.display = 'none'; forgotView.style.display = 'block';
     document.getElementById('forgot-email').value = document.getElementById('login-email').value;
 });
 document.getElementById('back-to-login').addEventListener('click', e => {
-    e.preventDefault();
-    forgotView.style.display = 'none';
-    loginView.style.display  = 'block';
+    e.preventDefault(); forgotView.style.display = 'none'; loginView.style.display = 'block';
 });
 document.getElementById('forgot-btn').addEventListener('click', async () => {
     const email = document.getElementById('forgot-email').value.trim();
@@ -764,17 +744,10 @@ document.getElementById('forgot-btn').addEventListener('click', async () => {
     if (!email) { errEl.textContent = 'Please enter your email address.'; return; }
     btn.disabled = true; btn.textContent = 'Sending…';
     try {
-        await fetch(`${GOTRUE}/recover`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email })
-        });
-        errEl.style.color = '#2a9d8f';
-        errEl.textContent = 'Reset link sent! Check your email.';
-        btn.textContent   = 'Sent';
+        await fetch(`${GOTRUE}/recover`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }) });
+        errEl.style.color = '#2a9d8f'; errEl.textContent = 'Reset link sent! Check your email.'; btn.textContent = 'Sent';
     } catch {
-        errEl.style.color = '#e63946';
-        errEl.textContent = 'Could not send reset email. Try again.';
+        errEl.style.color = '#e63946'; errEl.textContent = 'Could not send reset email. Try again.';
         btn.disabled = false; btn.textContent = 'Send reset link';
     }
 });
@@ -790,42 +763,26 @@ document.getElementById('login-btn').addEventListener('click', async () => {
     btn.disabled = true; btn.textContent = 'Logging in…';
     try {
         const res  = await fetch(`${GOTRUE}/token`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `grant_type=password&username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error_description || data.msg || 'Login failed');
-        storeSession(data, email);
-        showApp();
-    } catch (e) {
-        errEl.textContent = e.message;
-        btn.disabled = false; btn.textContent = 'Log in';
-    }
+        storeSession(data, email); showApp();
+    } catch (e) { errEl.textContent = e.message; btn.disabled = false; btn.textContent = 'Log in'; }
 });
-document.getElementById('login-email').addEventListener('keydown', e => {
-    if (e.key === 'Enter') document.getElementById('login-password').focus();
-});
-document.getElementById('login-password').addEventListener('keydown', e => {
-    if (e.key === 'Enter') document.getElementById('login-btn').click();
-});
+document.getElementById('login-email').addEventListener('keydown',    e => { if (e.key === 'Enter') document.getElementById('login-password').focus(); });
+document.getElementById('login-password').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-btn').click(); });
 
 // ── Logout ────────────────────────────────────────────────────────────────────
 logoutBtn.addEventListener('click', () => { clearSession(); showLoginScreen(); });
 
 // ── Boot ──────────────────────────────────────────────────────────────────────
 if (IS_LOCAL) {
-    loginScreen.style.display = 'none';
-    fetchJSON();
+    loginScreen.style.display = 'none'; fetchJSON();
 } else if (!activeToken) {
-    if (sessionValid()) {
-        showApp();
-    } else {
-        tryRefresh().then(ok => {
-            if (ok) showApp();
-            else { clearSession(); showLoginScreen(); }
-        });
-    }
+    if (sessionValid()) { showApp(); }
+    else { tryRefresh().then(ok => { if (ok) showApp(); else { clearSession(); showLoginScreen(); } }); }
 }
 </script>
 </body>
