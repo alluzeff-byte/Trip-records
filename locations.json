@@ -1248,6 +1248,190 @@
     "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
     "sites": ["Inverness Castle", "High Street", "Inverness War Memorial"],
     "pictures": "Inverness_26"
+  },
+  {
+    "name": "Chatham",
+    "latitude": 51.39345,
+    "longitude": 0.53017,
+    "dates": ["28/03/2026", "28/03/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["The Historic Dockyard Chatham", "Chatham Waterfront"],
+    "pictures": "Chatham_26"
+  },
+  {
+    "name": "Canterbury",
+    "latitude": 51.27912,
+    "longitude": 1.07924,
+    "dates": ["29/03/2026", "29/03/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Franciscan Gardens",
+      "Mercery Lane",
+      "Canterbury Cathedral",
+      "The Crooked House",
+      "Bulkhead Statue"
+    ],
+    "pictures": "Canterbury _26"
+  },
+  {
+    "name": "Dover",
+    "latitude": 51.12638,
+    "longitude": 1.3114,
+    "dates": ["29/03/2026", "29/03/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Western Heights Of Dover", "Dover Beach", "White Cliffs of Dover"],
+    "pictures": "Dover_26"
+  },
+  {
+    "name": "Lympne",
+    "latitude": 51.07862,
+    "longitude": 1.00294,
+    "dates": ["30/03/2026", "30/03/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Port Lympne"],
+    "pictures": "Lympne_26"
+  },
+  {
+    "name": "Eastbourne",
+    "latitude": 50.7692,
+    "longitude": 0.2849,
+    "dates": ["30/03/2026", "31/03/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Eastbourne Beach"],
+    "pictures": "Eastbourne_26"
+  },
+  {
+    "name": "Birling Gap",
+    "latitude": 50.7432,
+    "longitude": 0.20135,
+    "dates": ["31/03/2026", "31/03/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["National Trust - Birling Gap and the Seven Sisters"],
+    "pictures": "BirlingGap_26"
+  },
+  {
+    "name": "Brighton",
+    "latitude": 50.82847,
+    "longitude": -0.14148,
+    "dates": ["31/03/2026", "31/03/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Brighton i360",
+      "Brighton Fishing Museum",
+      "Brighton Palace Pier",
+      "Royal Pavilion",
+      "St Peter's Church"
+    ],
+    "pictures": "Brighton_26"
+  },
+  {
+    "name": "Portsmouth",
+    "latitude": 50.7985,
+    "longitude": -1.08566,
+    "dates": ["01/04/2026", "01/04/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Guildhall",
+      "Portsmouth Cathedral",
+      "Portsmouth Historic Dockyard",
+      "Spinnaker Tower"
+    ],
+    "pictures": "Portsmouth_26"
+  },
+  {
+    "name": "Southampton",
+    "latitude": 50.90185,
+    "longitude": -1.40459,
+    "dates": ["02/04/2026", "04/04/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Tudor House & Garden",
+      "God's House Tower",
+      "Holyrood Church",
+      "The Bargate",
+      "SeaCity Museum",
+      "Southampton City Art Gallery",
+      "Southampton Old Wall"
+    ],
+    "pictures": "Southampton_26"
+  },
+  {
+    "name": "Salisbury",
+    "latitude": 51.0691,
+    "longitude": -1.7966,
+    "dates": ["02/04/2026", "02/04/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Salisbury Cathedral", "Salisbury Watermeadows", "Elizabeth Gardens"],
+    "pictures": "Salisbury_26"
+  },
+  {
+    "name": "Stonehenge",
+    "latitude": 51.17894,
+    "longitude": -1.8263,
+    "dates": ["02/04/2026", "02/04/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Stonehenge"],
+    "pictures": "Stonehenge_26"
+  },
+  {
+    "name": "Old Sarum",
+    "latitude": 51.093882,
+    "longitude": -1.8045,
+    "dates": ["02/04/2026", "02/04/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Old Sarum"],
+    "pictures": "OldSarum_26"
+  },
+  {
+    "name": "Osborne",
+    "latitude": 50.74957,
+    "longitude": -1.26765,
+    "dates": ["03/04/2026", "03/04/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Osborne house"],
+    "pictures": "Osborne_26"
+  },
+  {
+    "name": "Shanklin",
+    "latitude": 50.6376,
+    "longitude": -1.17204,
+    "dates": ["03/04/2026", "03/04/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Shanklin Old Village", "Shanklin Beach"],
+    "pictures": "Shanklin_26"
+  },
+  {
+    "name": "Newport",
+    "latitude": 50.69982,
+    "longitude": -1.2933,
+    "dates": ["03/04/2026", "03/04/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Newport Minster"],
+    "pictures": "Newport_26"
+  },
+  {
+    "name": "Eastleigh",
+    "latitude": 50.96953,
+    "longitude": -1.3577,
+    "dates": ["01/04/2026", "04/04/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [],
+    "pictures": "Eastleigh_26"
+  },
+  {
+    "name": "Winchester",
+    "latitude": 51.06297,
+    "longitude": -1.31622,
+    "dates": ["05/04/2026", "05/04/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Winchester Cathedral",
+      "Guildhall Winchester",
+      "King Alfred the Great Statue",
+      "The Great Hall",
+      "Winchester Science Centre & Planetarium"
+    ],
+    "pictures": "Winchester_26"
   }
 ]
 
