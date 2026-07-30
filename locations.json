@@ -1223,7 +1223,7 @@
     "pictures": "Scapa_26"
   },
   {
-    "name": "Lambholm",
+    "name": "Lamb Holm",
     "latitude": 58.8897,
     "longitude": -2.893829,
     "dates": ["10/07/2026", "10/07/2026"],
@@ -1432,6 +1432,209 @@
       "Winchester Science Centre & Planetarium"
     ],
     "pictures": "Winchester_26"
+  },
+  {
+    "name": "London",
+    "latitude": 51.5074,
+    "longitude": -0.1278,
+    "dates": ["11/03/2026", "12/03/2026"],
+    "attenders": ["Papa"],
+    "sites": [
+      "Excel London",
+      "The British Museum",
+      "Trafalgar Square",
+      "The Golden Hinde",
+      "Tower Bridge",
+      "Westminster",
+      "Victoria Embankment Gardens"
+    ],
+    "pictures": "London_26"
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["05/06/2023", "27/07/2023"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Torry",
+      "St. Machar's Cathedral",
+      "Aberdeen Beach",
+      "North Donmouth Beach",
+      "Footdee",
+      "Marischal College",
+      "Union Terrace Gardens",
+      "Silver Fin"
+    ],
+    "pictures": "Aberdeen_23(1)"
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["25/08/2023", "10/09/2023"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Union Terrace Gardens",
+      "Codona's",
+      "Footdee",
+      "Aberdeen Beach",
+      "St. Machar's Cathedral",
+      "Bridge of Balgownie",
+      "AirHop",
+      "Duthie Park"
+    ],
+    "pictures": "Aberdeen_23(2)"
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["02/12/2023", "26/12/2023"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Torry", "Upperkirkgate"],
+    "pictures": "Aberdeen_23(3)"
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["06/01/2024", "12/04/2024"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Athletic Field", "Codona's", "Woodbank"],
+    "pictures": "Aberdeen_24(1)"
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["20/05/2024", "12/10/2024"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Kaimhill  school", "Tollohill Wood", "Cove Bay", "Kincorth"],
+    "pictures": "Aberdeen_24(2)"
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["03/11/2024", "14/12/2024"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Dee River"],
+    "pictures": "Aberdeen_24(3)"
+  },
+  {
+    "name": "London",
+    "latitude": 51.5074,
+    "longitude": -0.1278,
+    "dates": ["22/02/2024", "23/02/2024"],
+    "attenders": ["Papa"],
+    "sites": ["Shell building", "Westminster"],
+    "pictures": "London_24(2)"
+  },
+  {
+    "name": "Edinburgh",
+    "latitude": 55.9533,
+    "longitude": -3.1883,
+    "dates": ["06/03/2024", "06/03/2024"],
+    "attenders": ["Papa"],
+    "sites": ["City centre", "Leith"],
+    "pictures": "Edinburgh_24(1)"
+  },
+  {
+    "name": "Bergen",
+    "latitude": 60.3944,
+    "longitude": 5.32419,
+    "dates": ["19/04/2024", "24/04/2024"],
+    "attenders": ["Papa"],
+    "sites": ["Bryggen", "Utsiktspunkt", "City centre"],
+    "pictures": "Bergen_24"
+  },
+  {
+    "name": "Langevag",
+    "latitude": 62.437,
+    "longitude": 6.19,
+    "dates": ["20/04/2024", "23/04/2024"],
+    "attenders": ["Papa"],
+    "sites": ["Bomlo"],
+    "pictures": "Bomlo_24"
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["02/01/2025", "16/02/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Duthie Park"],
+    "pictures": "Aberdeen_25(1)"
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["08/04/2025", "18/06/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Aberdeen Beach", "Codona's"],
+    "pictures": "Aberdeen_25(2)"
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["18/07/2025", "24/08/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Aberdeen Port", "Cults"],
+    "pictures": "Aberdeen_25(3)"
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["21/09/2025", "30/12/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Tollohill Wood"],
+    "pictures": "Aberdeen_25(4)"
+  },
+  {
+    "name": "Edinburgh",
+    "latitude": 55.9533,
+    "longitude": -3.1883,
+    "dates": ["02/06/2025", "02/06/2025"],
+    "attenders": ["Papa"],
+    "sites": ["City centre", "The Writer's Museum"],
+    "pictures": "Edinburgh_25(1)"
+  },
+  {
+    "name": "Lerwick",
+    "latitude": 60.1548,
+    "longitude": -1.1491,
+    "dates": ["07/09/2024", "07/09/2024"],
+    "attenders": ["Papa"],
+    "sites": ["Fort Charlotte"],
+    "pictures": "Lerwick_24"
+  },
+  {
+    "name": "Lerwick",
+    "latitude": 60.1548,
+    "longitude": -1.1491,
+    "dates": ["14/03/2025", "14/03/2025"],
+    "attenders": ["Papa"],
+    "sites": [
+      "Shetland Museum",
+      "Stouts Pier",
+      "The Knab",
+      "Broch of Clickimin"
+    ],
+    "pictures": "Lerwick_25"
+  },
+  {
+    "name": "Scalloway",
+    "latitude": 60.1376,
+    "longitude": -1.2765,
+    "dates": ["13/03/2025", "14/03/2025"],
+    "attenders": ["Papa"],
+    "sites": ["Scalloway Hotel"],
+    "pictures": null
   }
 ]
+
 
