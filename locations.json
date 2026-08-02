@@ -1551,8 +1551,8 @@
   },
   {
     "name": "Langevag",
-    "latitude": 62.437,
-    "longitude": 6.19,
+    "latitude": 59.60215,
+    "longitude": 5.2081,
     "dates": ["20/04/2024", "23/04/2024"],
     "attenders": ["Papa"],
     "sites": ["Bomlo"],
@@ -1634,7 +1634,182 @@
     "attenders": ["Papa"],
     "sites": ["Scalloway Hotel"],
     "pictures": null
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["02/01/2025", "14/03/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Robert Gordon slope", "Asda pitch", "Aberdeen University"],
+    "pictures": "Aberdeen_26(1)"
+  },
+  {
+    "name": "Aberdeen",
+    "latitude": 57.14453,
+    "longitude": -2.10645,
+    "dates": ["02/01/2025", "14/03/2025"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Seaton Park"],
+    "pictures": "Aberdeen_26(2)"
+  },
+  {
+    "name": "Amsterdam",
+    "latitude": 52.3782,
+    "longitude": 4.8974,
+    "dates": ["06/10/2024", "10/10/2024"],
+    "attenders": ["Papa"],
+    "sites": ["Shell building", "Citi centre", "Canals"],
+    "pictures": "Amsterdam_24"
+  },
+  {
+    "name": "Glencoe",
+    "latitude": 56.6823,
+    "longitude": -5.10398,
+    "dates": ["16/07/2026", "16/07/2026"],
+    "attenders": ["Papa"],
+    "sites": ["The Pap of Glencoe", "Stob Coire", "Sgorr nam Fiannaidh"],
+    "pictures": "Glencoe_26"
+  },
+  {
+    "name": "Glasgow",
+    "latitude": 55.8642,
+    "longitude": -4.2518,
+    "dates": ["17/07/2026", "17/07/2026"],
+    "attenders": ["Papa"],
+    "sites": ["City centre"],
+    "pictures": "Glasgow_26"
+  },
+  {
+    "name": "Alanya",
+    "latitude": 36.5466,
+    "longitude": 31.983,
+    "dates": ["16/07/2026", "30/07/2026"],
+    "attenders": ["Mama", "Lesha", "Oksana"],
+    "sites": ["Ataturk House Museum", "Alanya Teleferik", "Damlataş Cave"],
+    "pictures": "Alanya_26"
+  },
+  {
+    "name": "Tashkent",
+    "latitude": 41.31316,
+    "longitude": 69.2469,
+    "dates": ["01/02/2023", "30/05/2023"],
+    "attenders": ["Papa"],
+    "sites": [
+      "State Museum of the History of Uzbekistan",
+      "Magic City Park",
+      "Chorsu Bozor",
+      "Tashkent Polytechnic Museum",
+      "Art Gallery of Uzbekistan",
+      "The Ankhor Star",
+      "Tashkent Zoo"
+    ],
+    "pictures": "Tashkent_23"
+  },
+  {
+    "name": "Nukus",
+    "latitude": 42.47103,
+    "longitude": 59.6141,
+    "dates": ["09/05/2023", "10/05/2023"],
+    "attenders": ["Papa"],
+    "sites": ["Savitsky Nukus Museum of Art"],
+    "pictures": "Nukus_23"
+  },
+  {
+    "name": "Chilpiq qala",
+    "latitude": 42.2661,
+    "longitude": 60.0747,
+    "dates": ["10/05/2023", "10/05/2023"],
+    "attenders": ["Papa"],
+    "sites": ["Chilpiq(Shilpiq) qala"],
+    "pictures": "Chilpiq_23"
+  },
+  {
+    "name": "Khiva",
+    "latitude": 41.3895,
+    "longitude": 60.3542,
+    "dates": ["07/05/2023", "07/05/2023"],
+    "attenders": ["Papa"],
+    "sites": ["Itchan Kala"],
+    "pictures": "Khiva_23"
+  },
+  {
+    "name": "Moynaq",
+    "latitude": 43.76624,
+    "longitude": 59.02838,
+    "dates": ["08/05/2023", "08/05/2023"],
+    "attenders": ["Papa"],
+    "sites": ["Muynak Ship Cemetery"],
+    "pictures": "Moynaq_23"
+  },
+  {
+    "name": "Aral Sea",
+    "latitude": 44.60892,
+    "longitude": 58.28005,
+    "dates": ["08/05/2023", "08/05/2023"],
+    "attenders": ["Papa"],
+    "sites": ["Big Aral", "Amudarya delta"],
+    "pictures": "Aral_23"
+  },
+  {
+    "name": "Ala Archa",
+    "latitude": 42.6531,
+    "longitude": 74.48649,
+    "dates": ["18/04/2023", "18/04/2023"],
+    "attenders": ["Papa"],
+    "sites": ["Ala Archa National Park"],
+    "pictures": "AlaArcha_23"
+  },
+  {
+    "name": "Issyk Kul",
+    "latitude": 42.6544,
+    "longitude": 76.9751,
+    "dates": ["19/04/2023", "19/04/2023"],
+    "attenders": ["Papa"],
+    "sites": [
+      "Nomad Civilization Center",
+      "Petroglyphs Museum",
+      "Cholpon Ata",
+      "Grigorievka Gorge",
+      "Mountains"
+    ],
+    "pictures": "IssukKul_23"
+  },
+  {
+    "name": "Bishkek",
+    "latitude": 42.8732,
+    "longitude": 74.594,
+    "dates": ["20/04/2023", "20/04/2023"],
+    "attenders": ["Papa"],
+    "sites": ["State History Museum", "M V Frunze Museum", "City centre"],
+    "pictures": "Bishkek_23"
+  },
+  {
+    "name": "Almaty",
+    "latitude": 43.24722,
+    "longitude": 76.8792,
+    "dates": ["21/04/2023", "21/04/2023"],
+    "attenders": ["Papa"],
+    "sites": [
+      "Museum of Archeology",
+      "Ascension Cathedral",
+      "Independence Monument",
+      "Central Park",
+      "Kok Tobe",
+      "Central State Museum of the Republic of Kazakhstan"
+    ],
+    "pictures": "Almaty_23"
+  },
+  {
+    "name": "Shymbulak",
+    "latitude": 43.11332,
+    "longitude": 77.1128,
+    "dates": ["21/04/2023", "21/04/2023"],
+    "attenders": ["Papa"],
+    "sites": ["Cable car"],
+    "pictures": "Shymbulak_23"
   }
 ]
+
 
 
