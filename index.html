@@ -191,6 +191,7 @@
             padding: 15px 22px; border-bottom: 1px solid #eee; flex-shrink: 0;
         }
         #modal-name { font-size: 20px; font-weight: 700; color: #1a1a2e; }
+        .modal-coords { font-size: 13px; font-weight: 400; color: #aaa; margin-left: 6px; }
         #modal-close {
             background: #f0f0f0; border: none; border-radius: 50%;
             width: 32px; height: 32px; font-size: 16px; cursor: pointer;
@@ -282,7 +283,7 @@
         <label class="toggle-row">
             <span class="toggle-text">Show labels</span>
             <div class="toggle-switch">
-                <input type="checkbox" id="labels-toggle" checked />
+                <input type="checkbox" id="labels-toggle" />
                 <span class="toggle-track"></span>
             </div>
         </label>
@@ -291,6 +292,11 @@
     <div class="menu-section">
         <div class="menu-section-title">Years</div>
         <div id="year-filters" class="year-list"></div>
+    </div>
+
+    <div class="menu-section">
+        <div class="menu-section-title">Attenders</div>
+        <div id="attenders-filters" class="year-list"></div>
     </div>
 </nav>
 
@@ -367,9 +373,10 @@ sideMenu.addEventListener('mouseenter', openSideMenu);
 sideMenu.addEventListener('mouseleave', closeSideMenu);
 
 // ── Filter state ──────────────────────────────────────────────────────────────
-let labelsOn    = true;
-let activeYears = new Set();
-let allGroups   = []; // { lat, lng, items, marker, name }
+let labelsOn        = false;
+let activeYears     = new Set();
+let activeAttenders = new Set();
+let allGroups       = []; // { lat, lng, items, marker, name }
 
 function getEntryYear(entry) {
     const d = entry.dates && entry.dates[0];
@@ -381,7 +388,10 @@ function getEntryYear(entry) {
 function visibleItems(items) {
     return items.filter(e => {
         const y = getEntryYear(e);
-        return y === null || activeYears.has(y);
+        if (y !== null && !activeYears.has(y)) return false;
+        const atts = Array.isArray(e.attenders) ? e.attenders.filter(Boolean) : [];
+        if (atts.length > 0 && !atts.some(a => activeAttenders.has(a))) return false;
+        return true;
     });
 }
 
@@ -414,23 +424,34 @@ document.getElementById('labels-toggle').addEventListener('change', function () 
 });
 
 // ── Year filters ──────────────────────────────────────────────────────────────
-function buildYearFilters(years) {
-    const container = document.getElementById('year-filters');
+function buildFilterList(containerId, values, cbClass, toValue, toActive) {
+    const container = document.getElementById(containerId);
     container.innerHTML = '';
-    years.forEach(year => {
+    values.forEach(val => {
+        const escaped = String(val).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
         const label = document.createElement('label');
         label.className = 'year-row';
-        label.innerHTML = `
-            <input type="checkbox" class="year-cb" value="${year}" checked />
-            <span>${year}</span>`;
+        label.innerHTML = `<input type="checkbox" class="${cbClass}" value="${escaped}" checked /><span>${val}</span>`;
         container.appendChild(label);
     });
     container.addEventListener('change', () => {
-        activeYears = new Set(
-            [...container.querySelectorAll('.year-cb:checked')].map(cb => parseInt(cb.value, 10))
-        );
+        toActive(new Set([...container.querySelectorAll(`.${cbClass}:checked`)].map(cb => toValue(cb.value))));
         applyFilters();
     });
+}
+
+function buildYearFilters(years) {
+    buildFilterList('year-filters', years, 'year-cb',
+        v => parseInt(v, 10),
+        s => { activeYears = s; }
+    );
+}
+
+function buildAttendersFilters(names) {
+    buildFilterList('attenders-filters', names, 'att-cb',
+        v => v,
+        s => { activeAttenders = s; }
+    );
 }
 
 // ── Folder image cache ───────────────────────────────────────────────────────
@@ -471,6 +492,14 @@ function parseDate(str) {
     const [d, m, y] = parts.map(Number);
     if (!d || !m || !y) return str;
     return new Date(y, m - 1, d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function parseDateToTimestamp(str) {
+    if (!str) return 0;
+    const parts = String(str).trim().split('/');
+    if (parts.length !== 3) return 0;
+    const [d, m, y] = parts.map(Number);
+    return new Date(y, m - 1, d).getTime();
 }
 
 function formatDates(dates) {
@@ -540,7 +569,11 @@ function fillList(ul, items, emptyText) {
 
 async function openModal(entry) {
     const myGenId = ++galleryGenId;
-    modalName.textContent = entry.name || '(unnamed)';
+    const lat = parseFloat(entry.latitude);
+    const lng = parseFloat(entry.longitude);
+    const coordStr = (!isNaN(lat) && !isNaN(lng))
+        ? `<span class="modal-coords">(${lat.toFixed(3)}, ${lng.toFixed(3)})</span>` : '';
+    modalName.innerHTML = `${entry.name || '(unnamed)'} ${coordStr}`;
     const datesStr = formatDates(entry.dates);
     modalDatesVal.textContent = datesStr || 'Not specified';
     modalDatesVal.className   = datesStr ? '' : 'empty';
@@ -595,17 +628,23 @@ function loadLocations(entries) {
         groups.get(key).items.push(entry);
     });
 
-    // Collect all years for the filter panel
-    const yearSet = new Set();
-    groups.forEach(({ items }) => items.forEach(e => { const y = getEntryYear(e); if (y) yearSet.add(y); }));
-    activeYears = new Set(yearSet);
+    // Collect all years and attenders for the filter panels
+    const yearSet     = new Set();
+    const attenderSet = new Set();
+    groups.forEach(({ items }) => items.forEach(e => {
+        const y = getEntryYear(e); if (y) yearSet.add(y);
+        (e.attenders || []).filter(Boolean).forEach(a => attenderSet.add(a));
+    }));
+    activeYears     = new Set(yearSet);
+    activeAttenders = new Set(attenderSet);
     buildYearFilters([...yearSet].sort((a, b) => a - b));
+    buildAttendersFilters([...attenderSet].sort());
 
     // Create one marker per coordinate group
     groups.forEach(({ lat, lng, items }) => {
         const name   = items[0].name || '(unnamed)';
         const marker = L.circleMarker([lat, lng], { ...BASE_STYLE })
-            .bindTooltip(name, { permanent: true, direction: 'right', offset: [10, 0], className: 'marker-label' })
+            .bindTooltip(name, { permanent: labelsOn, direction: 'right', offset: [10, 0], className: 'marker-label' })
             .addTo(map);
 
         marker.on('mouseover', function () { this.setStyle({ fillColor: '#e63946', radius: 11 }); this.bringToFront(); });
@@ -615,8 +654,10 @@ function loadLocations(entries) {
             const vis = visibleItems(items);
             if (vis.length === 0) return;
             if (vis.length === 1) { openModal(vis[0]); return; }
-            pickerEntries = vis;
-            const rows = vis.map((e, i) =>
+            // Sort earliest → latest
+            const sorted = [...vis].sort((a, b) => parseDateToTimestamp(a.dates && a.dates[0]) - parseDateToTimestamp(b.dates && b.dates[0]));
+            pickerEntries = sorted;
+            const rows = sorted.map((e, i) =>
                 `<div class="trip-pick" data-i="${i}">${formatDates(e.dates) || 'Trip ' + (i + 1)}</div>`
             ).join('');
             L.popup({ maxWidth: 260 })
