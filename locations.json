@@ -1639,7 +1639,7 @@
     "name": "Aberdeen",
     "latitude": 57.14453,
     "longitude": -2.10645,
-    "dates": ["02/01/2025", "14/03/2025"],
+    "dates": ["02/01/2026", "14/03/2026"],
     "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
     "sites": ["Robert Gordon slope", "Asda pitch", "Aberdeen University"],
     "pictures": "Aberdeen_26(1)"
@@ -1648,7 +1648,7 @@
     "name": "Aberdeen",
     "latitude": 57.14453,
     "longitude": -2.10645,
-    "dates": ["02/01/2025", "14/03/2025"],
+    "dates": ["02/01/2026", "14/03/2026"],
     "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
     "sites": ["Seaton Park"],
     "pictures": "Aberdeen_26(2)"
@@ -1808,6 +1808,23 @@
     "attenders": ["Papa"],
     "sites": ["Cable car"],
     "pictures": "Shymbulak_23"
+  },
+  {
+    "name": "Elgin",
+    "latitude": 57.64948,
+    "longitude": -3.3127,
+    "dates": ["08/08/2026", "08/08/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Lady Hill",
+      "Moray Motor Museum",
+      "Cooper Park",
+      "Biblical Garden Elgin",
+      "Elgin Cathedral",
+      "Elgin Museum",
+      "High Street"
+    ],
+    "pictures": "Elgin_26"
   }
 ]
 
