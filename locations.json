@@ -1825,8 +1825,159 @@
       "High Street"
     ],
     "pictures": "Elgin_26"
+  },
+  {
+    "name": "Glasgow",
+    "latitude": 55.8642,
+    "longitude": -4.2518,
+    "dates": ["12/10/2026", "12/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Glasgow Science Centre"],
+    "pictures": "Glasgow_26(2)"
+  },
+  {
+    "name": "St Ouen's Bay",
+    "latitude": 49.23403,
+    "longitude": -2.2399,
+    "dates": ["13/10/2026", "13/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "The Channel Islands Military Museum",
+      "German WWII Observation Bunker",
+      "MP3 Tower"
+    ],
+    "pictures": "StQuensBay_26"
+  },
+  {
+    "name": "Corbière",
+    "latitude": 49.17981,
+    "longitude": -2.24941,
+    "dates": ["13/10/2026", "13/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Lighthouse La Corbière"],
+    "pictures": "Corbiere_26"
+  },
+  {
+    "name": "St Helier",
+    "latitude": 49.18516,
+    "longitude": -2.10471,
+    "dates": ["13/10/2026", "15/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Liberation Square",
+      "St Paul's Church",
+      "Millennium Park",
+      "Les Jardins de la Mer",
+      "Maritime Museum & Occupation Tapestry Gallery",
+      "Fort Regent",
+      "Parade Gardens",
+      "Howard Davis Park"
+    ],
+    "pictures": "StHelier_26"
+  },
+  {
+    "name": "Les Charrières Malorey",
+    "latitude": 49.2108,
+    "longitude": -2.15278,
+    "dates": ["15/10/2026", "15/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Jersey War Tunnels"],
+    "pictures": "LesCharrièresMalorey_26"
+  },
+  {
+    "name": "Gorey",
+    "latitude": 49.19947,
+    "longitude": -2.019,
+    "dates": ["14/10/2026", "14/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Mont Orgueil Castle"],
+    "pictures": "Gorey_26"
+  },
+  {
+    "name": "Greve de Lecq",
+    "latitude": 49.24708,
+    "longitude": -2.20112,
+    "dates": ["15/10/2026", "15/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Greve de Lecq Beach", "The Ugly Oyster Seafood Bar"],
+    "pictures": "GreveDeLecq_26"
+  },
+  {
+    "name": "Fort Grey",
+    "latitude": 49.43928,
+    "longitude": -2.6546,
+    "dates": ["16/10/2026", "16/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Fort Grey Shipwreck Museum"],
+    "pictures": "FortGrey_26"
+  },
+  {
+    "name": "Les Houards",
+    "latitude": 49.42975,
+    "longitude": -2.59244,
+    "dates": ["16/10/2026", "16/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["German Occupation Museum"],
+    "pictures": "LesHouards_26"
+  },
+  {
+    "name": "St Peter Port",
+    "latitude": 49.45569,
+    "longitude": -2.53958,
+    "dates": ["16/10/2026", "18/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": [
+      "Candie Gardens",
+      "Victoria Tower",
+      "La Valette Underground Military Museum",
+      "La Vallette Bathing Pools",
+      "Clarence Battery"
+    ],
+    "pictures": "StPeterPort_26"
+  },
+  {
+    "name": "Vale",
+    "latitude": 49.48524,
+    "longitude": -2.509070323,
+    "dates": ["16/10/2026", "16/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Vale Castle"],
+    "pictures": "Vale_26"
+  },
+  {
+    "name": "Herm Island",
+    "latitude": 49.4716,
+    "longitude": -2.44836,
+    "dates": ["17/10/2026", "17/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["St. Tugual's Chapel", "Shell Beach"],
+    "pictures": "Herm_26"
+  },
+  {
+    "name": "Vazon",
+    "latitude": 49.47007,
+    "longitude": -2.60798,
+    "dates": ["17/10/2026", "17/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Vazon Bay", "Vazon Tower No.12", "Fort Hommet"],
+    "pictures": "Vazon_26"
+  },
+  {
+    "name": "Les Vauxbelets valley",
+    "latitude": 49.44261,
+    "longitude": -2.5877,
+    "dates": ["16/10/2026", "16/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Little Chapel"],
+    "pictures": "LesVauxbelets_26"
+  },
+  {
+    "name": "London",
+    "latitude": 51.5074,
+    "longitude": -0.1278,
+    "dates": ["18/10/2026", "18/10/2026"],
+    "attenders": ["Papa", "Mama", "Lesha", "Oksana"],
+    "sites": ["Canary Wharf"],
+    "pictures": "London_26(2)"
   }
 ]
-
-
-
